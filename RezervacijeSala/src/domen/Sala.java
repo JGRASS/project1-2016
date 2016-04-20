@@ -8,6 +8,14 @@ public class Sala {
 	private EnumTipSale tip;
 	private List<Dan> listaDana;
 	
+	public Sala(){};
+	
+	public Sala(String imeSale, EnumTipSale tip, List<Dan> listaDana) {
+		this.imeSale = imeSale;
+		this.tip = tip;
+		this.listaDana = listaDana;
+	}
+	
 	public String getImeSale() {
 		return imeSale;
 	}

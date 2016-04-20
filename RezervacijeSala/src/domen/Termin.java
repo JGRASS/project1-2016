@@ -5,6 +5,13 @@ public class Termin {
 	private int brojTermina;
 	private boolean slobodan;
 	
+	public Termin(){};
+	
+	public Termin(int brojTermina, boolean slobodan) {
+		this.brojTermina = brojTermina;
+		this.slobodan = slobodan;
+	}
+	
 	public int getBrojTermina() {
 		return brojTermina;
 	}

@@ -6,6 +6,13 @@ public class Dan {
 
 	private int dan;
 	private List<Termin> listaTermina;
+	
+	public Dan(){};
+	
+	public Dan(int dan, List<Termin> listaTermina) {
+		this.dan = dan;
+		this.listaTermina = listaTermina;
+	}
 	public int getDan() {
 		return dan;
 	}
