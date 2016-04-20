@@ -4,15 +4,9 @@ import java.sql.*;
 
 public class DBConnector {
 	Connection conn = null;
-	public Connection connect() {
-		try {
+	public Connection connect() throws SQLException {
 			conn = DriverManager.getConnection
-					("jdbc:mysql://localhost:3308/saledb","root","root");
-		} catch (SQLException ex) {
-			System.out.println("SQLException: " + ex.getMessage());
-			System.out.println("SQLState: " + ex.getSQLState());
-			System.out.println("VendorError: " + ex.getErrorCode());
-		}
+					("jdbc:mysql://localhost:3308/sale_v2","root","root");
 		return conn;
 	}
 }

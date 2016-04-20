@@ -15,6 +15,7 @@ import javax.swing.DefaultComboBoxModel;
 
 public class RezSalaGUI extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JPanel panel;
 	private JScrollPane scrollPane;
