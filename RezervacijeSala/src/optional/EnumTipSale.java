@@ -1,4 +1,4 @@
-package domen;
+package optional;
 
 public enum EnumTipSale {
 
