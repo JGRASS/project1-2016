@@ -12,7 +12,7 @@ public class Kontroler {
 	public void prikupiSale() {
 		Model testModel = new Model();
 		try {
-			dogadjaji = testModel.prikupiSale("RacunskiCentar");
+			dogadjaji = testModel.prikupiSale("Amfiteatar");
 			for (Event event : dogadjaji) {
 				System.out.println(
 						event.getSala() + "\t" + event.getDatum() + "\t" + event.getTermin() + "\t" + event.getHost());
