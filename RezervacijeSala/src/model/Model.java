@@ -9,11 +9,13 @@ import com.mysql.jdbc.PreparedStatement;
 
 import connection.DBConnector;
 import domen.Event;
+import domen.Sala;
+import domen.Termin;
 
 public class Model {
 	DBConnector konektor = new DBConnector();
 
-	public LinkedList<Event> prikupiSale(String tipSale) throws SQLException {
+	public LinkedList<Event> prikupiEventove(String tipSale) throws SQLException {
 		LinkedList<Event> dogadjaji = new LinkedList<Event>();
 		Connection conn = konektor.connect();
 		String upit = null;
@@ -28,7 +30,7 @@ public class Model {
 				int datum = rs.getInt(4);
 				int sala_id = rs.getInt(5);
 				int termin_id = rs.getInt(6);
-				Event e = new Event(host, naziv, datum, vreme, sala_id, termin_id);
+				Event e = new Event(host, new Sala(sala_id, naziv), new Termin(termin_id, vreme, datum));
 				dogadjaji.add(e);
 			}
 			rs.close();
@@ -46,7 +48,7 @@ public class Model {
 				int datum = rs.getInt(4);
 				int sala_id = rs.getInt(5);
 				int termin_id = rs.getInt(6);
-				Event e = new Event(host, naziv, datum, vreme, sala_id, termin_id);
+				Event e = new Event(host, new Sala(sala_id, naziv), new Termin(termin_id, vreme, datum));
 				dogadjaji.add(e);
 			}
 			rs.close();
@@ -64,7 +66,7 @@ public class Model {
 				int datum = rs.getInt(4);
 				int sala_id = rs.getInt(5);
 				int termin_id = rs.getInt(6);
-				Event e = new Event(host, naziv, datum, vreme, sala_id, termin_id);
+				Event e = new Event(host, new Sala(sala_id, naziv), new Termin(termin_id, vreme, datum));
 				dogadjaji.add(e);
 			}
 			rs.close();

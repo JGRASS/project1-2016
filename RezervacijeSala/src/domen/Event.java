@@ -2,22 +2,16 @@ package domen;
 
 public class Event {
 	private String host;
-	private String sala;
-	private int datum;
-	private int termin;
-	private int sala_id;
-	private int termin_id;
+	private Sala sala;
+	private Termin termin;
 
-	public Event() {
-	};
-
-	public Event(String host, String sala, int datum, int termin, int sala_id, int termin_id) {
+	public Event(String host, Sala sala, Termin termin) {
 		this.host = host;
 		this.sala = sala;
-		this.datum = datum;
 		this.termin = termin;
-		this.sala_id = sala_id;
-		this.termin_id = termin_id;
+	}
+
+	public Event() {
 	}
 
 	public String getHost() {
@@ -28,44 +22,20 @@ public class Event {
 		this.host = host;
 	}
 
-	public String getSala() {
+	public Sala getSala() {
 		return sala;
 	}
 
-	public void setSala(String sala) {
+	public void setSala(Sala sala) {
 		this.sala = sala;
 	}
 
-	public int getDatum() {
-		return datum;
-	}
-
-	public void setDatum(int datum) {
-		this.datum = datum;
-	}
-
-	public int getTermin() {
+	public Termin getTermin() {
 		return termin;
 	}
 
-	public void setTermin(int termin) {
+	public void setTermin(Termin termin) {
 		this.termin = termin;
-	}
-
-	public int getSala_id() {
-		return sala_id;
-	}
-
-	public void setSala_id(int sala_id) {
-		this.sala_id = sala_id;
-	}
-
-	public int getTermin_id() {
-		return termin_id;
-	}
-
-	public void setTermin_id(int termin_id) {
-		this.termin_id = termin_id;
-	}
+	};
 
 }

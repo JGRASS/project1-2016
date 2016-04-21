@@ -8,13 +8,12 @@ import model.Model;
 
 public class Kontroler {
 	private LinkedList<Event> dogadjaji = null;
-
+	Model testModel = new Model();
 	public void prikupiSale() {
-		Model testModel = new Model();
 		try {
-			dogadjaji = testModel.prikupiSale("RC");
+			dogadjaji = testModel.prikupiEventove("RC");
 			for (Event event : dogadjaji) {
-				System.out.println("Sala: "+event.getSala() + "\tDatum: " + event.getDatum() + "\tTermin: " + event.getTermin() + "\tPredmet: " + event.getHost()+"\tid sale:" + event.getSala_id() + "\tid termina: "+ event.getTermin_id());
+				System.out.println("Sala: "+event.getSala().getNaziv_sale() + "\tDatum: " + event.getTermin().getDatum() + "\tTermin: " + event.getTermin().getVreme() + "\tPredmet: " + event.getHost()+"\tid sale:" + event.getSala().getSala_id() + "\tid termina: "+ event.getTermin().getTermin_id());
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
