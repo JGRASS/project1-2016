@@ -79,7 +79,7 @@ public class Model {
 	public LinkedList<Sala> vratiSlobodneSaleUTerminu(LinkedList<Sala> sale, LinkedList<Event> eventoviUTerminu) {
 		LinkedList<Sala> slobodneSale = new LinkedList<Sala>();
 
-		for (Sala sala : slobodneSale) {
+		for (Sala sala : sale) {
 			if (daLiJeSalaSlobodna(eventoviUTerminu, sala)) {
 				slobodneSale.add(sala);
 			}
