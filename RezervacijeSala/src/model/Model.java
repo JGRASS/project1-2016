@@ -18,7 +18,7 @@ public class Model {
 		Connection conn = konektor.connect();
 		String upit = null;
 		if (tipSale == "RC") {
-			upit = "select naziv_sale, event_host, vreme, datum from event inner join sala on event.sala_id = sala.sala_id inner join termin on event.termin_id = termin.termin_id where tip_sale = 'rc'";
+			upit = "select naziv_sale, event_host, vreme, datum, event.sala_id, event.termin_id from event inner join sala on event.sala_id = sala.sala_id inner join termin on event.termin_id = termin.termin_id where tip_sale = 'rc'";
 			PreparedStatement ps = (PreparedStatement) conn.prepareStatement(upit);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
@@ -26,7 +26,9 @@ public class Model {
 				String host = rs.getString(2);
 				int vreme = rs.getInt(3);
 				int datum = rs.getInt(4);
-				Event e = new Event(host, naziv, datum, vreme);
+				int sala_id = rs.getInt(5);
+				int termin_id = rs.getInt(6);
+				Event e = new Event(host, naziv, datum, vreme, sala_id, termin_id);
 				dogadjaji.add(e);
 			}
 			rs.close();
@@ -34,7 +36,7 @@ public class Model {
 			conn.close();
 		}
 		if (tipSale == "Amfiteatar") {
-			upit = "select naziv_sale, event_host, vreme, datum from event inner join sala on event.sala_id = sala.sala_id inner join termin on event.termin_id = termin.termin_id where tip_sale = 'amfiteatar'";
+			upit = "select naziv_sale, event_host, vreme, datum, event.sala_id, event.termin_id from event inner join sala on event.sala_id = sala.sala_id inner join termin on event.termin_id = termin.termin_id where tip_sale = 'amfiteatar'";
 			PreparedStatement ps = (PreparedStatement) conn.prepareStatement(upit);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
@@ -42,7 +44,9 @@ public class Model {
 				String host = rs.getString(2);
 				int vreme = rs.getInt(3);
 				int datum = rs.getInt(4);
-				Event e = new Event(host, naziv, datum, vreme);
+				int sala_id = rs.getInt(5);
+				int termin_id = rs.getInt(6);
+				Event e = new Event(host, naziv, datum, vreme, sala_id, termin_id);
 				dogadjaji.add(e);
 			}
 			rs.close();
@@ -50,7 +54,7 @@ public class Model {
 			conn.close();
 		}
 		if (tipSale == "Ucionica") {
-			upit = "select naziv_sale, event_host, vreme, datum from event inner join sala on event.sala_id = sala.sala_id inner join termin on event.termin_id = termin.termin_id where tip_sale = 'ucionica'";
+			upit = "select naziv_sale, event_host, vreme, datum, event.sala_id, event.termin_id from event inner join sala on event.sala_id = sala.sala_id inner join termin on event.termin_id = termin.termin_id where tip_sale = 'ucionica'";
 			PreparedStatement ps = (PreparedStatement) conn.prepareStatement(upit);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
@@ -58,7 +62,9 @@ public class Model {
 				String host = rs.getString(2);
 				int vreme = rs.getInt(3);
 				int datum = rs.getInt(4);
-				Event e = new Event(host, naziv, datum, vreme);
+				int sala_id = rs.getInt(5);
+				int termin_id = rs.getInt(6);
+				Event e = new Event(host, naziv, datum, vreme, sala_id, termin_id);
 				dogadjaji.add(e);
 			}
 			rs.close();

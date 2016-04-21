@@ -5,15 +5,19 @@ public class Event {
 	private String sala;
 	private int datum;
 	private int termin;
+	private int sala_id;
+	private int termin_id;
 
 	public Event() {
 	};
 
-	public Event(String host, String sala, int datum, int termin) {
+	public Event(String host, String sala, int datum, int termin, int sala_id, int termin_id) {
 		this.host = host;
 		this.sala = sala;
 		this.datum = datum;
 		this.termin = termin;
+		this.sala_id = sala_id;
+		this.termin_id = termin_id;
 	}
 
 	public String getHost() {
@@ -46,6 +50,22 @@ public class Event {
 
 	public void setTermin(int termin) {
 		this.termin = termin;
+	}
+
+	public int getSala_id() {
+		return sala_id;
+	}
+
+	public void setSala_id(int sala_id) {
+		this.sala_id = sala_id;
+	}
+
+	public int getTermin_id() {
+		return termin_id;
+	}
+
+	public void setTermin_id(int termin_id) {
+		this.termin_id = termin_id;
 	}
 
 }

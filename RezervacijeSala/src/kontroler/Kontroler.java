@@ -12,10 +12,9 @@ public class Kontroler {
 	public void prikupiSale() {
 		Model testModel = new Model();
 		try {
-			dogadjaji = testModel.prikupiSale("Amfiteatar");
+			dogadjaji = testModel.prikupiSale("RC");
 			for (Event event : dogadjaji) {
-				System.out.println(
-						event.getSala() + "\t" + event.getDatum() + "\t" + event.getTermin() + "\t" + event.getHost());
+				System.out.println("Sala: "+event.getSala() + "\tDatum: " + event.getDatum() + "\tTermin: " + event.getTermin() + "\tPredmet: " + event.getHost()+"\tid sale:" + event.getSala_id() + "\tid termina: "+ event.getTermin_id());
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
