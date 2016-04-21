@@ -109,6 +109,11 @@ public class Model {
 	public void unesiEvent(Event e) throws SQLException {
 		Connection conn = konektor.connect();
 		String upit = "INSERT INTO event (event_host, event.termin_id, event.sala_id) VALUES (?,?,?)";
+		PreparedStatement ps = (PreparedStatement) conn.prepareStatement(upit);
+		ps.setString(1, e.getHost().trim());
+		ps.setInt(2, e.getTermin().getTermin_id());
+		ps.setInt(3, e.getSala().getSala_id());
+		ps.execute();
 	}
 
 }

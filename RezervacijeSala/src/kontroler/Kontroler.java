@@ -6,6 +6,7 @@ import java.util.LinkedList;
 
 import domen.Event;
 import domen.Sala;
+import domen.Termin;
 import gui.RezSalaGUI;
 import model.Model;
 
@@ -25,6 +26,15 @@ public class Kontroler {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+	}
+	
+	public void unesiEvent(Event e){
+		try {
+			testModel.unesiEvent(e);
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 	}
 /*
@@ -68,6 +78,8 @@ public class Kontroler {
 		 */
 		// k.sveSale("rc");
 		k.prikupiEventoveZaDatiTerminITipSale(3, 10, "ucionica");
+		Event e = new Event("Engleski Jezik", new Sala(1, "B009", "amfiteatar"), new Termin(6, 18, 1));
+		k.unesiEvent(e);
 	}
 
 }
