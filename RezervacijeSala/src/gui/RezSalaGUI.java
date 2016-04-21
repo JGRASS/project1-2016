@@ -75,7 +75,11 @@ public class RezSalaGUI extends JFrame {
 		if (comboBox == null) {
 			comboBox = new JComboBox();
 			comboBox.setModel(new DefaultComboBoxModel(new String[] {"Amfiteatar", "RC", "Ucionica"}));
+			
 		}
 		return comboBox;
+	}
+	public String vratiOdabranTipSale(){
+		return comboBox.getSelectedItem().toString().trim();
 	}
 }
