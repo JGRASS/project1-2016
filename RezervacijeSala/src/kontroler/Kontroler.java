@@ -77,10 +77,9 @@ public class Kontroler {
 		 * TEST ZA UNOS NOVOG EVENTA
 		 */
 		/*
-		 * Event e = new Event("Engleski Jezik", new Sala(1, "B009",
-		 * "amfiteatar"), new Termin(6, 18, 1)); k.unesiEvent(e);
+		  Event e = new Event("Modelovanje", new Sala(4, "104",
+		  "ucionica"), new Termin(3,3,10)); k.unesiEvent(e);
 		 */
-
 		try {
 			LinkedList<Event> eventoviZaTerminITipSale = k.testModel.prikupiEventoveZaDatiTerminITipSale(3, 10,
 					"ucionica");
@@ -106,5 +105,4 @@ public class Kontroler {
 			e.printStackTrace();
 		}
 	}
-
 }
