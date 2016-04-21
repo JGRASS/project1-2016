@@ -1,15 +1,11 @@
 package model;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.LinkedList;
-
-import com.mysql.jdbc.PreparedStatement;
 
 import connection.DBConnector;
 import domen.Event;
 
+import java.sql.*;
 public class Model {
 	DBConnector konektor = new DBConnector();
 
