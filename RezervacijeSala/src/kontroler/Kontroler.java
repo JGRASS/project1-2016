@@ -13,9 +13,9 @@ public class Kontroler {
 	private LinkedList<Event> dogadjaji = null;
 	Model testModel = new Model();
 
-	public void prikupiEventove(String s) {
+	public void prikupiEventoveZaDatiTerminITipSale(int datum, int vreme, String tipSale) {
 		try {
-			dogadjaji = testModel.prikupiEventoveZaDatiTipSale(s);
+			dogadjaji = testModel.prikupiEventoveZaDatiTerminITipSale(datum, vreme, tipSale);
 			for (Event event : dogadjaji) {
 				System.out.println("Sala: " + event.getSala().getNaziv_sale() + "\tTip sale: "
 						+ event.getSala().getTip_sale() + "\tDatum: " + event.getTermin().getDatum() + "\tTermin: "
@@ -27,7 +27,7 @@ public class Kontroler {
 			e.printStackTrace();
 		}
 	}
-
+/*
 	public void sviEventoviZaDatoVremeIDatum(int vreme, int datum) {
 		try {
 			dogadjaji = testModel.prikupiEventoveZaDatiTermin(datum, vreme);
@@ -42,7 +42,8 @@ public class Kontroler {
 			e.printStackTrace();
 		}
 	}
-
+*/
+	/*
 	public void sveSale(String s) {
 		try {
 			LinkedList<Sala> sale = testModel.sveSaleDatogTipa(s);
@@ -55,7 +56,7 @@ public class Kontroler {
 			e.printStackTrace();
 		}
 	}
-
+*/
 	/*
 	 * TEST
 	 */
@@ -66,7 +67,7 @@ public class Kontroler {
 		 * k.prikupiSale(gui.vratiOdabranTipSale()); k.prikupiEventove("RC");
 		 */
 		// k.sveSale("rc");
-		k.sviEventoviZaDatoVremeIDatum(10, 3);
+		k.prikupiEventoveZaDatiTerminITipSale(3, 10, "ucionica");
 	}
 
 }

@@ -14,7 +14,7 @@ import domen.Termin;
 
 public class Model {
 	DBConnector konektor = new DBConnector();
-
+/*
 	public LinkedList<Event> prikupiEventoveZaDatiTipSale(String tipSale) throws SQLException {
 		LinkedList<Event> dogadjaji = new LinkedList<Event>();
 		Connection conn = konektor.connect();
@@ -39,13 +39,13 @@ public class Model {
 		conn.close();
 		return dogadjaji;
 	}
-
-	public LinkedList<Event> prikupiEventoveZaDatiTermin(int datum, int vreme) throws SQLException {
+*/
+	public LinkedList<Event> prikupiEventoveZaDatiTerminITipSale(int datum, int vreme, String tipSale) throws SQLException {
 		LinkedList<Event> dogadjaji = new LinkedList<Event>();
 		Connection conn = konektor.connect();
 		String upit = null;
 		upit = "select naziv_sale, event_host, vreme, datum, event.sala_id, event.termin_id, tip_sale from event inner join sala on event.sala_id = sala.sala_id inner join termin on event.termin_id = termin.termin_id where termin.vreme="
-				+ "'" + vreme + "'" + " and termin.datum =" + "'" + datum + "'";
+				+ "'" + vreme + "'" + " and termin.datum =" + "'" + datum + "'" + " and sala.tip_sale ="+ "'" + tipSale +"'";
 		PreparedStatement ps = (PreparedStatement) conn.prepareStatement(upit);
 		ResultSet rs = ps.executeQuery();
 		while (rs.next()) {
@@ -65,7 +65,7 @@ public class Model {
 		return dogadjaji;
 	}
 
-	public boolean daLiJeSalaSlobodna(LinkedList<Event> eventoviUTerminu, Sala s) {
+	private boolean daLiJeSalaSlobodna(LinkedList<Event> eventoviUTerminu, Sala s) {
 		boolean slobodna = true;
 		for (Event event : eventoviUTerminu) {
 			if (s.equals(event.getSala())) {
@@ -106,10 +106,9 @@ public class Model {
 		return sale;
 	}
 
-	public void unesiDogadjaj(Event e) throws SQLException {
+	public void unesiEvent(Event e) throws SQLException {
 		Connection conn = konektor.connect();
-		String upitTermin = "INSERT INTO termin (vreme, datum) values (?,?)";
-		String upitEvent = "INSERT INTO ";
+		String upit = "INSERT INTO event (event_host, event.termin_id, event.sala_id) VALUES (?,?,?)";
 	}
 
 }
