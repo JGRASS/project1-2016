@@ -13,6 +13,29 @@ import model.Model;
 public class Kontroler {
 	private LinkedList<Event> dogadjaji = null;
 	Model testModel = new Model();
+	
+	
+	/**
+	 * Metoda na osnovu parametara vraca slobodne sale odredjenog tipa u datom terminu
+	 * @param datum
+	 * @param vreme
+	 * @param tipSale 
+	 * @return lista objekta slobodnih sala
+	 */
+	public LinkedList<Sala> vratiSlobodneSale(int datum, int vreme, String tipSale){
+		LinkedList<Sala> sale;
+		LinkedList<Event> eventi;
+		LinkedList<Sala> slobodne = new LinkedList<>();
+		try {
+			sale = testModel.sveSaleDatogTipa(tipSale);
+			eventi = testModel.prikupiEventoveZaDatiTerminITipSale(datum, vreme, tipSale);
+			slobodne = testModel.vratiSlobodneSaleUTerminu(sale, eventi);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return slobodne;
+	}
 
 	public void prikupiEventoveZaDatiTerminITipSale(int datum, int vreme, String tipSale) {
 		try {
