@@ -40,6 +40,15 @@ public class Model {
 		return dogadjaji;
 	}
 */
+	/**
+	 * Metoda vraca evente (sale sa svojim zakazanim terminima) iz baze podataka koji odgovaraju 
+	 * datom terminu i tipu sale.
+	 * @param datum
+	 * @param vreme
+	 * @param tipSale
+	 * @return lista objekata Event
+	 * @throws java.sql.SQLException
+	 */
 	public LinkedList<Event> prikupiEventoveZaDatiTerminITipSale(int datum, int vreme, String tipSale) throws SQLException {
 		LinkedList<Event> dogadjaji = new LinkedList<Event>();
 		Connection conn = konektor.connect();
@@ -65,6 +74,13 @@ public class Model {
 		return dogadjaji;
 	}
 
+	/**
+	 * Metoda proverava da li je data sala slobodna odnosno da li
+	 * se ne poklapa sa nekom salom iz liste eventa.
+	 * @param eventoviUTerminu
+	 * @param s
+	 * @return true ako je sala slobodna u 
+	 */
 	private boolean daLiJeSalaSlobodna(LinkedList<Event> eventoviUTerminu, Sala s) {
 		boolean slobodna = true;
 		for (Event event : eventoviUTerminu) {
@@ -76,6 +92,13 @@ public class Model {
 		return slobodna;
 	}
 
+	/**
+	 * Metoda vraca listu slobodnih sala u datom terminu na osnovu
+	 * liste sala odredjenog tipa i liste eventa.
+	 * @param sale
+	 * @param eventoviUTerminu
+	 * @return lista slobodnih sala
+	 */
 	public LinkedList<Sala> vratiSlobodneSaleUTerminu(LinkedList<Sala> sale, LinkedList<Event> eventoviUTerminu) {
 		LinkedList<Sala> slobodneSale = new LinkedList<Sala>();
 
@@ -87,6 +110,12 @@ public class Model {
 		return slobodneSale;
 	}
 
+	/**
+	 * Metoda vraca sale istog tipa
+	 * @param tipSale
+	 * @return lista sala istog tipa
+	 * @throws java.sql.SQLException
+	 */
 	public LinkedList<Sala> sveSaleDatogTipa(String tipSale) throws SQLException {
 		LinkedList<Sala> sale = new LinkedList<Sala>();
 		Connection conn = konektor.connect();
