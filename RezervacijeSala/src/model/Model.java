@@ -13,7 +13,7 @@ import domen.Sala;
 import domen.Termin;
 
 public class Model {
-	DBConnector konektor = new DBConnector();
+	private static DBConnector konektor = new DBConnector();
 /*
 	public LinkedList<Event> prikupiEventoveZaDatiTipSale(String tipSale) throws SQLException {
 		LinkedList<Event> dogadjaji = new LinkedList<Event>();
@@ -65,7 +65,7 @@ public class Model {
 		return dogadjaji;
 	}
 
-	private boolean daLiJeSalaSlobodna(LinkedList<Event> eventoviUTerminu, Sala s) {
+	private static boolean daLiJeSalaSlobodna(LinkedList<Event> eventoviUTerminu, Sala s) {
 		boolean slobodna = true;
 		for (Event event : eventoviUTerminu) {
 			if (s.equals(event.getSala())) {
@@ -105,7 +105,7 @@ public class Model {
 		conn.close();
 		return sale;
 	}
-
+	
 	public void unesiEvent(Event e) throws SQLException {
 		Connection conn = konektor.connect();
 		String upit = "INSERT INTO event (event_host, event.termin_id, event.sala_id) VALUES (?,?,?)";
