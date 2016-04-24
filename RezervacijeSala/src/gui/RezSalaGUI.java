@@ -8,7 +8,6 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 
-import gui.osluskivac.Osluskivac;
 import kontroler.Kontroler;
 
 import java.awt.Dimension;
@@ -152,10 +151,6 @@ public class RezSalaGUI extends JFrame {
 		return comboBox;
 	}
 	
-	public void postaviOsluskivac(){
-		MouseListener osluskivac = new Osluskivac(table);
-		table.addMouseListener(osluskivac);
-	}
 	
 
 	/*
