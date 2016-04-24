@@ -115,9 +115,9 @@ public class RezSalaGUI extends JFrame {
 						@Override
 						public void mousePressed(MouseEvent e) {
 							int red = table.getSelectedRow();
-							int kolona = table.getSelectedColumn();
-							if (red!= 0 && kolona!=0) {
-								RezervacijaGUI rg = new RezervacijaGUI();
+							int kolona = table.getSelectedColumn();							
+							if (kolona!=0) {
+								RezervacijaGUI rg = new RezervacijaGUI(kolona, red, tipSale);
 								rg.show();
 							}
 							
