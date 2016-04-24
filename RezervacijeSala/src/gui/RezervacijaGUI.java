@@ -18,6 +18,8 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
+import java.nio.file.ClosedFileSystemException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.awt.event.ActionEvent;
 
@@ -30,23 +32,10 @@ public class RezervacijaGUI extends JFrame {
 	private JButton btnRezervacija;
 	private JButton btnOtkazi;
 
-	LinkedList<Sala> sale;
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					RezervacijaGUI frame = new RezervacijaGUI();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
+	private LinkedList<Sala> sale;
+	private int datum;
+	private int vreme;
+	private String tipSale;
 	/**
 	 * Create the frame.
 	 */
@@ -59,10 +48,14 @@ public class RezervacijaGUI extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		contentPane.add(getScrollPane(), BorderLayout.CENTER);
 		contentPane.add(getPanel(), BorderLayout.EAST);
+		this.datum = datum;
+		this.vreme = vreme;
+		this.tipSale = tipSale;
 		sale = Kontroler.vratiSlobodneSale(datum, vreme, tipSale);
+		napuniListu();
 	}
 	public RezervacijaGUI() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 304, 301);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -97,17 +90,24 @@ public class RezervacijaGUI extends JFrame {
 	private JButton getBtnRezervacija() {
 		if (btnRezervacija == null) {
 			btnRezervacija = new JButton("Rezervisi");
+			btnRezervacija.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					String sala =(String) jlstSale.getSelectedValue();
+					//Kontroler.
+				}
+			});
 			btnRezervacija.setBounds(10, 11, 100, 23);
 		}
 		return btnRezervacija;
 	}
+	
+	
 	private JButton getBtnOtkazi() {
 		if (btnOtkazi == null) {
-			btnOtkazi = new JButton("Otkazi");
+			btnOtkazi = new JButton("Otkazi");			
 			btnOtkazi.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					RezervacijaGUI rg = new RezervacijaGUI();
-					rg.dispose();
+					dispose();
 				}
 			});
 			btnOtkazi.setBounds(10, 45, 100, 23);
@@ -115,8 +115,20 @@ public class RezervacijaGUI extends JFrame {
 		return btnOtkazi;
 	}
 	
-	public void napuniListu(){
-		DefaultListModel<Sala> dlm = new DefaultListModel<>();
+
+	/**
+	 * Metoda popunjava listu u formi rezervacije.
+	 */
+	private void napuniListu(){
+		DefaultListModel<String> dlm = new DefaultListModel<>();
+		for(Sala sala : sale){
+			dlm.addElement(sala.getNaziv_sale());
+		}
+		jlstSale.setModel(dlm);
+		/*ArrayList<String> i = new ArrayList<>();
+		String[] str = new String[i.size()];
+		//Assuming there is data in your list
+		JList<String> list = new JList<>(i.toArray(str));*/
 		
 	}
 }

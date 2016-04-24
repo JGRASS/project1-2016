@@ -80,7 +80,17 @@ public class Kontroler {
 		
 		return slobodne;
 	}
-	
+	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Obrati paznju na indexe
+	public static void dodajEvent(String host, String sala, int datum, int vreme, String tipSale){
+		Termin termin = new Termin(90, vreme, datum);
+		Sala salla = new Sala(90, sala, tipSale);
+		Event event = new Event(host, salla, termin);
+		try {
+			testModel.unesiEvent(event);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	public static boolean daLiPostojiNekaSlobodnaSalaUTerminu(LinkedList<Sala> slobodneSale){
 		return !slobodneSale.isEmpty();

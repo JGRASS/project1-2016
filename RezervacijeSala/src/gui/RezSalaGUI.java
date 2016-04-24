@@ -6,6 +6,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.basic.BasicTreeUI.SelectionModelPropertyChangeHandler;
 import javax.swing.table.DefaultTableCellRenderer;
 
 import kontroler.Kontroler;
@@ -13,6 +14,7 @@ import kontroler.Kontroler;
 import java.awt.Dimension;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -101,6 +103,7 @@ public class RezSalaGUI extends JFrame {
 					table.setModel(model);
 					DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
 					centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+					//table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 					table.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
 					//table.setPreferredScrollableViewportSize(new Dimension(200, 250));
 					table.addMouseListener(new MouseListener() {
@@ -116,7 +119,11 @@ public class RezSalaGUI extends JFrame {
 							int red = table.getSelectedRow();
 							int kolona = table.getSelectedColumn();							
 							if (kolona!=0) {
-								RezervacijaGUI rg = new RezervacijaGUI(kolona, red, tipSale);
+								RezervacijaGUI rg = null;
+								if (rg!=null) {
+									rg.dispose();
+								}
+								rg = new RezervacijaGUI(kolona, red, tipSale);
 								rg.show();
 							}
 							
@@ -140,6 +147,7 @@ public class RezSalaGUI extends JFrame {
 							
 						}
 					});
+					
 					scrollPane = new JScrollPane();
 					scrollPane.setViewportView(table);
 					contentPane.add(scrollPane, BorderLayout.CENTER);
