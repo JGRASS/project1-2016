@@ -97,10 +97,14 @@ public class RezSalaGUI extends JFrame {
 			comboBox.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					String tipSale = comboBox.getSelectedItem().toString().toLowerCase().trim();
+					if (table != null) {
+						table = null;
+					}
 					table = new JTable();
 					
 					table.setRowHeight(50);
 					TableModelRezSalaGUI model = new TableModelRezSalaGUI(tipSale);
+					model.osveziTabelu();
 					table.setModel(model);
 					DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
 					centerRenderer.setHorizontalAlignment(JLabel.CENTER);
@@ -120,11 +124,7 @@ public class RezSalaGUI extends JFrame {
 							int red = table.getSelectedRow();
 							int kolona = table.getSelectedColumn();							
 							if (kolona!=0) {
-								RezervacijaGUI rg = null;
-								if (rg!=null) {
-									rg.dispose();
-								}
-								rg = new RezervacijaGUI(kolona, red, tipSale);
+								RezervacijaGUI rg = new RezervacijaGUI(kolona, red, tipSale);
 								rg.show();
 							}
 							
@@ -154,6 +154,7 @@ public class RezSalaGUI extends JFrame {
 					contentPane.add(scrollPane, BorderLayout.CENTER);
 					contentPane.revalidate();
 					contentPane.repaint();
+					
 				}
 			});
 		}

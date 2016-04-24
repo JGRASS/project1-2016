@@ -88,5 +88,9 @@ public class TableModelRezSalaGUI extends AbstractTableModel {
 			} else
 				return false;
 	}
+	
+	public void osveziTabelu(){
+		fireTableDataChanged();
+	}
 
 }

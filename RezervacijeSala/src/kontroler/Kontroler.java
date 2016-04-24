@@ -1,7 +1,6 @@
 package kontroler;
 
 import java.sql.SQLException;
-import java.util.Iterator;
 import java.util.LinkedList;
 
 import domen.Event;
