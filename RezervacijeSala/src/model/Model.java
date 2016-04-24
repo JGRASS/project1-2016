@@ -13,7 +13,7 @@ import domen.Sala;
 import domen.Termin;
 
 public class Model {
-	DBConnector konektor = new DBConnector();
+	private static DBConnector konektor = new DBConnector();
 /*
 	public LinkedList<Event> prikupiEventoveZaDatiTipSale(String tipSale) throws SQLException {
 		LinkedList<Event> dogadjaji = new LinkedList<Event>();
@@ -73,6 +73,7 @@ public class Model {
 		conn.close();
 		return dogadjaji;
 	}
+
 
 	/**
 	 * Metoda proverava da li je data sala slobodna odnosno da li
@@ -134,7 +135,7 @@ public class Model {
 		conn.close();
 		return sale;
 	}
-
+	
 	public void unesiEvent(Event e) throws SQLException {
 		Connection conn = konektor.connect();
 		String upit = "INSERT INTO event (event_host, event.termin_id, event.sala_id) VALUES (?,?,?)";
