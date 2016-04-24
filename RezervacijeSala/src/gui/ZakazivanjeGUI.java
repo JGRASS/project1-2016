@@ -200,6 +200,7 @@ public class ZakazivanjeGUI extends JDialog {
 			btnOtkazi.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					dispose();
+					
 				}
 			});
 			btnOtkazi.setBounds(7, 163, 89, 23);

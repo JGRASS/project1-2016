@@ -130,9 +130,14 @@ public class RezSalaGUI extends JFrame {
 						public void mousePressed(MouseEvent e) {
 							int red = table.getSelectedRow();
 							int kolona = table.getSelectedColumn();
+							if (table.getModel().getValueAt(red, kolona)== "NO") {
+								return;
+							}
+
 							if (kolona != 0) {
 								/*RezervacijaGUI rg = new RezervacijaGUI(kolona, red, tipSale);
 								rg.setVisible(true);*/
+								
 								ZakazivanjeGUI zk = new ZakazivanjeGUI(kolona, red, tipSale);
 								zk.setVisible(true);
 							}
