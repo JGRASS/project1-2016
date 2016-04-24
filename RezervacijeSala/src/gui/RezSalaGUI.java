@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 
+import gui.osluskivac.Osluskivac;
 import kontroler.Kontroler;
 
 import java.awt.Dimension;
@@ -17,6 +18,8 @@ import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.ActionEvent;
 
 public class RezSalaGUI extends JFrame {
@@ -45,6 +48,7 @@ public class RezSalaGUI extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		contentPane.add(getPanel(), BorderLayout.EAST);
+		
 	}
 
 	private JPanel getPanel() {
@@ -100,6 +104,43 @@ public class RezSalaGUI extends JFrame {
 					centerRenderer.setHorizontalAlignment(JLabel.CENTER);
 					table.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
 					//table.setPreferredScrollableViewportSize(new Dimension(200, 250));
+					table.addMouseListener(new MouseListener() {
+						
+						@Override
+						public void mouseReleased(MouseEvent e) {
+							// TODO Auto-generated method stub
+							
+						}
+						
+						@Override
+						public void mousePressed(MouseEvent e) {
+							int red = table.getSelectedRow();
+							int kolona = table.getSelectedColumn();
+							if (red!= 0 && kolona!=0) {
+								RezervacijaGUI rg = new RezervacijaGUI();
+								rg.show();
+							}
+							
+						}
+						
+						@Override
+						public void mouseExited(MouseEvent e) {
+							// TODO Auto-generated method stub
+							
+						}
+						
+						@Override
+						public void mouseEntered(MouseEvent e) {
+							// TODO Auto-generated method stub
+							
+						}
+						
+						@Override
+						public void mouseClicked(MouseEvent e) {
+							// TODO Auto-generated method stub
+							
+						}
+					});
 					scrollPane = new JScrollPane();
 					scrollPane.setViewportView(table);
 					contentPane.add(scrollPane, BorderLayout.CENTER);
@@ -110,6 +151,12 @@ public class RezSalaGUI extends JFrame {
 		}
 		return comboBox;
 	}
+	
+	public void postaviOsluskivac(){
+		MouseListener osluskivac = new Osluskivac(table);
+		table.addMouseListener(osluskivac);
+	}
+	
 
 	/*
 	 * pokusacemo drugaciju implementaciju public String vratiOdabranTipSale() {
