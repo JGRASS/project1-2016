@@ -110,7 +110,12 @@ public class Kontroler {
 		*/
 		
 		
-		
+		/*try {
+			System.out.println(testModel.vratiMaxIdSale());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
 
 		
 		

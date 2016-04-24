@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 
 import com.mysql.jdbc.PreparedStatement;
+import com.mysql.jdbc.Statement;
 
 import connection.DBConnector;
 import domen.Event;
@@ -146,4 +147,12 @@ public class Model {
 		ps.execute();
 	}
 
+	/*public int vratiMaxIdSale() throws SQLException{
+		String upit = "SELECT sale_id from table ORDER BY id DESC LIMIT 1";
+		Connection conn = konektor.connect();
+		Statement statement = (Statement) conn.createStatement();
+		ResultSet rs = statement.executeQuery(upit);
+		int max = rs.getInt(1);
+		return max;
+	}*/
 }

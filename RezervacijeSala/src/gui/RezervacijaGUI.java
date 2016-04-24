@@ -67,6 +67,7 @@ public class RezervacijaGUI extends JFrame {
 		setTitle("Rezervacija");
 		lblIzabranTermin.setText(pretvoriTerminUString(vreme));
 		lblIzabranDan.setText(pretvoriDanUString(datum));
+		setResizable(false);
 	}
 	public RezervacijaGUI() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -182,7 +183,7 @@ public class RezervacijaGUI extends JFrame {
 		case 5:
 			return "18:15 - 20:00";
 		default:
-			return "NN";
+			return ""+termin;
 		}
 		}
 	private String pretvoriDanUString(int dan){
@@ -202,7 +203,7 @@ public class RezervacijaGUI extends JFrame {
 		case 7:
 			return "Nedelja";
 		default:
-			return "NN";
+			return ""+dan;
 		}
 		}
 	private JLabel getLblIzabranDan() {
