@@ -46,6 +46,8 @@ public class RezervacijaGUI extends JFrame {
 	private JLabel lblIzabranTermin;
 	private JLabel lblHost;
 	private JTextField txtHost;
+	private JLabel lblTipSale;
+	private JLabel lblIzabranTipSale;
 
 	/**
 	 * Create the frame.
@@ -67,10 +69,11 @@ public class RezervacijaGUI extends JFrame {
 		setTitle("Rezervacija");
 		lblIzabranTermin.setText(pretvoriTerminUString(vreme));
 		lblIzabranDan.setText(pretvoriDanUString(datum));
+		lblIzabranTipSale.setText(pretvoriTipSaleUString(tipSale));
 		setResizable(false);
 	}
 	public RezervacijaGUI() {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 384, 301);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -106,6 +109,8 @@ public class RezervacijaGUI extends JFrame {
 			panel.add(getLblIzabranTermin());
 			panel.add(getLblHost());
 			panel.add(getTxtHost());
+			panel.add(getLblTipSale());
+			panel.add(getLblIzabranTipSale());
 		}
 		return panel;
 	}
@@ -118,7 +123,7 @@ public class RezervacijaGUI extends JFrame {
 					//Kontroler.
 				}
 			});
-			btnRezervacija.setBounds(10, 103, 100, 23);
+			btnRezervacija.setBounds(10, 135, 100, 23);
 		}
 		return btnRezervacija;
 	}
@@ -132,7 +137,7 @@ public class RezervacijaGUI extends JFrame {
 					dispose();
 				}
 			});
-			btnOtkazi.setBounds(10, 137, 100, 23);
+			btnOtkazi.setBounds(10, 169, 100, 23);
 		}
 		return btnOtkazi;
 	}
@@ -185,6 +190,14 @@ public class RezervacijaGUI extends JFrame {
 			return ""+termin;
 		}
 		}
+	private String pretvoriTipSaleUString(String s){
+		switch(s){
+		case "rc": return "RC";
+		case "amfiteatar":  return "Amfiteatar";
+		case "ucionica": return "Ucionica";
+		default: return s;
+		}
+	}
 	private String pretvoriDanUString(int dan){
 		switch(dan){
 		case 1:
@@ -222,16 +235,30 @@ public class RezervacijaGUI extends JFrame {
 	private JLabel getLblHost() {
 		if (lblHost == null) {
 			lblHost = new JLabel("Host:");
-			lblHost.setBounds(10, 61, 46, 14);
+			lblHost.setBounds(10, 92, 46, 14);
 		}
 		return lblHost;
 	}
 	private JTextField getTxtHost() {
 		if (txtHost == null) {
 			txtHost = new JTextField();
-			txtHost.setBounds(48, 58, 86, 20);
+			txtHost.setBounds(43, 89, 86, 20);
 			txtHost.setColumns(10);
 		}
 		return txtHost;
+	}
+	private JLabel getLblTipSale() {
+		if (lblTipSale == null) {
+			lblTipSale = new JLabel("Tip sale:");
+			lblTipSale.setBounds(10, 61, 58, 14);
+		}
+		return lblTipSale;
+	}
+	private JLabel getLblIzabranTipSale() {
+		if (lblIzabranTipSale == null) {
+			lblIzabranTipSale = new JLabel("");
+			lblIzabranTipSale.setBounds(63, 61, 90, 14);
+		}
+		return lblIzabranTipSale;
 	}
 	}
