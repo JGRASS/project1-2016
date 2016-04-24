@@ -66,7 +66,7 @@ public class Kontroler {
 	 * @param tipSale 
 	 * @return lista objekta slobodnih sala
 	 */
-	public LinkedList<Sala> vratiSlobodneSale(int datum, int vreme, String tipSale){
+	public static LinkedList<Sala> vratiSlobodneSale(int datum, int vreme, String tipSale){
 		LinkedList<Sala> sale;
 		LinkedList<Event> eventi;
 		LinkedList<Sala> slobodne = new LinkedList<>();

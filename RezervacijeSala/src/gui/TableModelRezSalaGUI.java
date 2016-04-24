@@ -61,7 +61,7 @@ public class TableModelRezSalaGUI extends AbstractTableModel {
 		} else {
 			if (isCellEditable(row, column)) {
 				System.out.println(Kontroler.daLiPostojiNekaSlobodnaSalaUTerminu(
-					Kontroler.vratiSlobodneSaleZaDatiTerminITipSale(column, row, tipSale)));
+					Kontroler.vratiSlobodneSale(column, row, tipSale)));
 				return "YES";
 			} else {
 				return "NO";
@@ -83,7 +83,7 @@ public class TableModelRezSalaGUI extends AbstractTableModel {
 	@Override
 	public boolean isCellEditable(int rowIndex, int columnIndex) {
 			if (Kontroler.daLiPostojiNekaSlobodnaSalaUTerminu(
-					Kontroler.vratiSlobodneSaleZaDatiTerminITipSale(columnIndex, rowIndex, tipSale))) {
+					Kontroler.vratiSlobodneSale(columnIndex, rowIndex, tipSale))) {
 				return true;
 			} else
 				return false;
