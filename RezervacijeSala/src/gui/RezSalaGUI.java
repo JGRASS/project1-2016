@@ -98,6 +98,7 @@ public class RezSalaGUI extends JFrame {
 				public void actionPerformed(ActionEvent arg0) {
 					String tipSale = comboBox.getSelectedItem().toString().toLowerCase().trim();
 					table = new JTable();
+					
 					table.setRowHeight(50);
 					TableModelRezSalaGUI model = new TableModelRezSalaGUI(tipSale);
 					table.setModel(model);

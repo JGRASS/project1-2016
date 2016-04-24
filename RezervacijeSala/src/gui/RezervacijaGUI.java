@@ -22,6 +22,7 @@ import java.nio.file.ClosedFileSystemException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
 
 public class RezervacijaGUI extends JFrame {
 
@@ -36,6 +37,12 @@ public class RezervacijaGUI extends JFrame {
 	private int datum;
 	private int vreme;
 	private String tipSale;
+
+	private JLabel lblDan;
+	private JLabel lblTermin;
+	private JLabel lblIzabranDan;
+	private JLabel lblIzabranTermin;
+
 	/**
 	 * Create the frame.
 	 */
@@ -53,10 +60,13 @@ public class RezervacijaGUI extends JFrame {
 		this.tipSale = tipSale;
 		sale = Kontroler.vratiSlobodneSale(datum, vreme, tipSale);
 		napuniListu();
+		setTitle("Rezervacija");
+		lblIzabranTermin.setText(pretvoriTerminUString(vreme));
+		lblIzabranDan.setText(pretvoriDanUString(datum));
 	}
 	public RezervacijaGUI() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 304, 301);
+		setBounds(100, 100, 384, 301);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -74,16 +84,21 @@ public class RezervacijaGUI extends JFrame {
 	private JList getJlstSale() {
 		if (jlstSale == null) {
 			jlstSale = new JList();
+			
 		}
 		return jlstSale;
 	}
 	private JPanel getPanel() {
 		if (panel == null) {
 			panel = new JPanel();
-			panel.setPreferredSize(new Dimension(120, 50));
+			panel.setPreferredSize(new Dimension(160, 50));
 			panel.setLayout(null);
 			panel.add(getBtnRezervacija());
 			panel.add(getBtnOtkazi());
+			panel.add(getLblDan());
+			panel.add(getLblTermin());
+			panel.add(getLblIzabranDan());
+			panel.add(getLblIzabranTermin());
 		}
 		return panel;
 	}
@@ -96,7 +111,7 @@ public class RezervacijaGUI extends JFrame {
 					//Kontroler.
 				}
 			});
-			btnRezervacija.setBounds(10, 11, 100, 23);
+			btnRezervacija.setBounds(10, 62, 100, 23);
 		}
 		return btnRezervacija;
 	}
@@ -110,7 +125,7 @@ public class RezervacijaGUI extends JFrame {
 					dispose();
 				}
 			});
-			btnOtkazi.setBounds(10, 45, 100, 23);
+			btnOtkazi.setBounds(10, 96, 100, 23);
 		}
 		return btnOtkazi;
 	}
@@ -131,4 +146,70 @@ public class RezervacijaGUI extends JFrame {
 		JList<String> list = new JList<>(i.toArray(str));*/
 		
 	}
-}
+	private JLabel getLblDan() {
+		if (lblDan == null) {
+			lblDan = new JLabel("Dan: ");
+			lblDan.setBounds(10, 11, 46, 14);
+		}
+		return lblDan;
+	}
+	private JLabel getLblTermin() {
+		if (lblTermin == null) {
+			lblTermin = new JLabel("Termin: ");
+			lblTermin.setBounds(10, 36, 46, 14);
+		}
+		return lblTermin;
+	}
+	private String pretvoriTerminUString(int termin){
+		switch(termin){
+		case 0:
+			return "8:15-10:00";
+		case 1:
+			return "10:15 - 12:00";
+		case 2:
+			return "12:15 - 14:00";
+		case 3:
+			return "14:15 - 16:00";
+		case 4:
+			return "16:15 - 18:00";
+		case 5:
+			return "18:15 - 20:00";
+		default:
+			return "NN";
+		}
+		}
+	private String pretvoriDanUString(int dan){
+		switch(dan){
+		case 1:
+			return "Ponedeljak";
+		case 2:
+			return "Utorak";
+		case 3:
+			return "Sreda";
+		case 4:
+			return "Cetvrtak";
+		case 5:
+			return "Petak";
+		case 6: 
+			return "Subota";
+		case 7:
+			return "Nedelja";
+		default:
+			return "NN";
+		}
+		}
+	private JLabel getLblIzabranDan() {
+		if (lblIzabranDan == null) {
+			lblIzabranDan = new JLabel("");
+			lblIzabranDan.setBounds(43, 11, 110, 14);
+		}
+		return lblIzabranDan;
+	}
+	private JLabel getLblIzabranTermin() {
+		if (lblIzabranTermin == null) {
+			lblIzabranTermin = new JLabel("");
+			lblIzabranTermin.setBounds(53, 36, 100, 14);
+		}
+		return lblIzabranTermin;
+	}
+	}
