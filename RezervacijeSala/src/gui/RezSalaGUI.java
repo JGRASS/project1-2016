@@ -13,6 +13,7 @@ import kontroler.Kontroler;
 import java.awt.Dimension;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -96,6 +97,7 @@ public class RezSalaGUI extends JFrame {
 				public void actionPerformed(ActionEvent arg0) {
 					String tipSale = comboBox.getSelectedItem().toString().toLowerCase().trim();
 					table = new JTable();
+					
 					table.setRowHeight(50);
 					TableModelRezSalaGUI model = new TableModelRezSalaGUI(tipSale);
 					table.setModel(model);

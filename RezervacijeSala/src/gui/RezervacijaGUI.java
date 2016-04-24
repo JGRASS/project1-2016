@@ -20,6 +20,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
 import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
 
 public class RezervacijaGUI extends JFrame {
 
@@ -31,21 +32,13 @@ public class RezervacijaGUI extends JFrame {
 	private JButton btnOtkazi;
 
 	LinkedList<Sala> sale;
+	private JLabel lblDan;
+	private JLabel lblTermin;
+	private JLabel lblIzabranDan;
+	private JLabel lblIzabranTermin;
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					RezervacijaGUI frame = new RezervacijaGUI();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -60,9 +53,13 @@ public class RezervacijaGUI extends JFrame {
 		contentPane.add(getScrollPane(), BorderLayout.CENTER);
 		contentPane.add(getPanel(), BorderLayout.EAST);
 		sale = Kontroler.vratiSlobodneSale(datum, vreme, tipSale);
+		setTitle("Rezervacija");
+		lblIzabranTermin.setText(pretvoriTerminUString(vreme));
+		lblIzabranDan.setText(pretvoriDanUString(datum));
 	}
 	public RezervacijaGUI() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 304, 301);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -81,6 +78,7 @@ public class RezervacijaGUI extends JFrame {
 	private JList getJlstSale() {
 		if (jlstSale == null) {
 			jlstSale = new JList();
+			
 		}
 		return jlstSale;
 	}
@@ -91,13 +89,17 @@ public class RezervacijaGUI extends JFrame {
 			panel.setLayout(null);
 			panel.add(getBtnRezervacija());
 			panel.add(getBtnOtkazi());
+			panel.add(getLblDan());
+			panel.add(getLblTermin());
+			panel.add(getLblIzabranDan());
+			panel.add(getLblIzabranTermin());
 		}
 		return panel;
 	}
 	private JButton getBtnRezervacija() {
 		if (btnRezervacija == null) {
 			btnRezervacija = new JButton("Rezervisi");
-			btnRezervacija.setBounds(10, 11, 100, 23);
+			btnRezervacija.setBounds(10, 62, 100, 23);
 		}
 		return btnRezervacija;
 	}
@@ -106,11 +108,10 @@ public class RezervacijaGUI extends JFrame {
 			btnOtkazi = new JButton("Otkazi");
 			btnOtkazi.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					RezervacijaGUI rg = new RezervacijaGUI();
-					rg.dispose();
+					dispose();
 				}
 			});
-			btnOtkazi.setBounds(10, 45, 100, 23);
+			btnOtkazi.setBounds(10, 96, 100, 23);
 		}
 		return btnOtkazi;
 	}
@@ -119,4 +120,70 @@ public class RezervacijaGUI extends JFrame {
 		DefaultListModel<Sala> dlm = new DefaultListModel<>();
 		
 	}
-}
+	private JLabel getLblDan() {
+		if (lblDan == null) {
+			lblDan = new JLabel("Dan: ");
+			lblDan.setBounds(10, 11, 46, 14);
+		}
+		return lblDan;
+	}
+	private JLabel getLblTermin() {
+		if (lblTermin == null) {
+			lblTermin = new JLabel("Termin: ");
+			lblTermin.setBounds(10, 36, 46, 14);
+		}
+		return lblTermin;
+	}
+	private String pretvoriTerminUString(int termin){
+		switch(termin){
+		case 0:
+			return "8:15-10:00";
+		case 1:
+			return "10:15 - 12:00";
+		case 2:
+			return "12:15 - 14:00";
+		case 3:
+			return "14:15 - 16:00";
+		case 4:
+			return "16:15 - 18:00";
+		case 5:
+			return "18:15 - 20:00";
+		default:
+			return "NN";
+		}
+		}
+	private String pretvoriDanUString(int dan){
+		switch(dan){
+		case 1:
+			return "Ponedeljak";
+		case 2:
+			return "Utorak";
+		case 3:
+			return "Sreda";
+		case 4:
+			return "Cetvrtak";
+		case 5:
+			return "Petak";
+		case 6: 
+			return "Subota";
+		case 7:
+			return "Nedelja";
+		default:
+			return "NN";
+		}
+		}
+	private JLabel getLblIzabranDan() {
+		if (lblIzabranDan == null) {
+			lblIzabranDan = new JLabel("");
+			lblIzabranDan.setBounds(43, 11, 67, 14);
+		}
+		return lblIzabranDan;
+	}
+	private JLabel getLblIzabranTermin() {
+		if (lblIzabranTermin == null) {
+			lblIzabranTermin = new JLabel("");
+			lblIzabranTermin.setBounds(53, 36, 57, 14);
+		}
+		return lblIzabranTermin;
+	}
+	}
