@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 public class RezervacijaGUI extends JFrame {
 
@@ -42,12 +44,14 @@ public class RezervacijaGUI extends JFrame {
 	private JLabel lblTermin;
 	private JLabel lblIzabranDan;
 	private JLabel lblIzabranTermin;
+	private JLabel lblHost;
+	private JTextField txtHost;
 
 	/**
 	 * Create the frame.
 	 */
 	public RezervacijaGUI(int datum, int vreme, String tipSale) {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 304, 301);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -99,6 +103,8 @@ public class RezervacijaGUI extends JFrame {
 			panel.add(getLblTermin());
 			panel.add(getLblIzabranDan());
 			panel.add(getLblIzabranTermin());
+			panel.add(getLblHost());
+			panel.add(getTxtHost());
 		}
 		return panel;
 	}
@@ -112,7 +118,7 @@ public class RezervacijaGUI extends JFrame {
 					//Kontroler.dodajEvent(host, sala, datum, vreme, sala);
 				}
 			});
-			btnRezervacija.setBounds(10, 62, 100, 23);
+			btnRezervacija.setBounds(10, 103, 100, 23);
 		}
 		return btnRezervacija;
 	}
@@ -126,7 +132,7 @@ public class RezervacijaGUI extends JFrame {
 					dispose();
 				}
 			});
-			btnOtkazi.setBounds(10, 96, 100, 23);
+			btnOtkazi.setBounds(10, 137, 100, 23);
 		}
 		return btnOtkazi;
 	}
@@ -212,5 +218,20 @@ public class RezervacijaGUI extends JFrame {
 			lblIzabranTermin.setBounds(53, 36, 100, 14);
 		}
 		return lblIzabranTermin;
+	}
+	private JLabel getLblHost() {
+		if (lblHost == null) {
+			lblHost = new JLabel("Host:");
+			lblHost.setBounds(10, 61, 46, 14);
+		}
+		return lblHost;
+	}
+	private JTextField getTxtHost() {
+		if (txtHost == null) {
+			txtHost = new JTextField();
+			txtHost.setBounds(48, 58, 86, 20);
+			txtHost.setColumns(10);
+		}
+		return txtHost;
 	}
 	}
