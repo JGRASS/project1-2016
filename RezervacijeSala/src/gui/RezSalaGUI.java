@@ -48,7 +48,7 @@ public class RezSalaGUI extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		contentPane.add(getPanel(), BorderLayout.EAST);
-		
+
 	}
 
 	private JPanel getPanel() {
@@ -96,72 +96,73 @@ public class RezSalaGUI extends JFrame {
 			comboBox.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					String tipSale = comboBox.getSelectedItem().toString().toLowerCase().trim();
-					if(table!=null){
+					if (table != null) {
 						table.setModel(new TableModelRezSalaGUI(tipSale));
 						table.repaint();
-						return;
+						 //return;
+					}else{
+						table = new JTable();
+
+						table.setRowHeight(50);
+						TableModelRezSalaGUI model = new TableModelRezSalaGUI(tipSale);
+						table.setModel(model);
+						DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+						centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+						table.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+						// table.setPreferredScrollableViewportSize(new
+						// Dimension(200, 250));
+						scrollPane = new JScrollPane();
+						scrollPane.setViewportView(table);
+						contentPane.add(scrollPane, BorderLayout.CENTER);
+						contentPane.revalidate();
+						contentPane.repaint();
 					}
-					table = new JTable();
-					
-					table.setRowHeight(50);
-					TableModelRezSalaGUI model = new TableModelRezSalaGUI(tipSale);
-					model.osveziTabelu();
-					table.setModel(model);
-					DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-					centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-					table.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
-					//table.setPreferredScrollableViewportSize(new Dimension(200, 250));
+
 					table.addMouseListener(new MouseListener() {
-						
+
 						@Override
 						public void mouseReleased(MouseEvent e) {
 							// TODO Auto-generated method stub
-							
+
 						}
-						
+
 						@Override
 						public void mousePressed(MouseEvent e) {
 							int red = table.getSelectedRow();
-							int kolona = table.getSelectedColumn();							
-							if (kolona!=0) {
-								RezervacijaGUI rg = new RezervacijaGUI(kolona, red, tipSale);
-
-								rg.setVisible(true);
+							int kolona = table.getSelectedColumn();
+							if (kolona != 0) {
+								/*RezervacijaGUI rg = new RezervacijaGUI(kolona, red, tipSale);
+								rg.setVisible(true);*/
+								ZakazivanjeGUI zk = new ZakazivanjeGUI(kolona, red, tipSale);
+								zk.setVisible(true);
 							}
-							
+
 						}
-						
+
 						@Override
 						public void mouseExited(MouseEvent e) {
 							// TODO Auto-generated method stub
-							
+
 						}
-						
+
 						@Override
 						public void mouseEntered(MouseEvent e) {
 							// TODO Auto-generated method stub
-							
+
 						}
-						
+
 						@Override
 						public void mouseClicked(MouseEvent e) {
 							// TODO Auto-generated method stub
-							
+
 						}
 					});
-					scrollPane = new JScrollPane();
-					scrollPane.setViewportView(table);
-					contentPane.add(scrollPane, BorderLayout.CENTER);
-					contentPane.revalidate();
-					contentPane.repaint();
 					
 				}
 			});
 		}
 		return comboBox;
 	}
-	
-	
 
 	/*
 	 * pokusacemo drugaciju implementaciju public String vratiOdabranTipSale() {
