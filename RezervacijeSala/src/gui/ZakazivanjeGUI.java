@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.util.LinkedList;
 
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -108,6 +109,8 @@ public class ZakazivanjeGUI extends JDialog {
 	
 	private void napuniListu(){
 		DefaultListModel<String> dlm = new DefaultListModel<>();
+		DefaultListCellRenderer dlcr = (DefaultListCellRenderer) jlstSale.getCellRenderer();
+		dlcr.setHorizontalAlignment(JLabel.CENTER);
 		for(Sala sala : sale){
 			dlm.addElement(sala.getNaziv_sale());
 		}
