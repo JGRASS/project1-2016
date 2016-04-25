@@ -91,7 +91,7 @@ public class Kontroler {
 	public static void dodajEvent(String host, String sala, int datum, int vreme, String tipSale){
 		try {
 			int sala_id = 6;
-			int termin_id = 6;
+			int termin_id = 5;
 			LinkedList<Sala> sveSale = testModel.sveSaleDatogTipa(tipSale);
 			for(Sala salica : sveSale){
 				if(salica.getNaziv_sale().equals(sala)){

@@ -163,17 +163,17 @@ public class ZakazivanjeGUI extends JDialog {
 	 */
 	private String pretvoriTerminUString(int termin) {
 		switch (termin) {
-		case 1:
+		case 0:
 			return "8:15-10:00";
-		case 2:
+		case 1:
 			return "10:15 - 12:00";
-		case 3:
+		case 2:
 			return "12:15 - 14:00";
-		case 4:
+		case 3:
 			return "14:15 - 16:00";
-		case 5:
+		case 4:
 			return "16:15 - 18:00";
-		case 6:
+		case 5:
 			return "18:15 - 20:00";
 		default:
 			return "" + termin;
@@ -279,8 +279,7 @@ public class ZakazivanjeGUI extends JDialog {
 					System.out.println(sala);
 					String host = txtHost.getText();
 					System.out.println(host);
-					int termin = vreme + 1;
-					Kontroler.dodajEvent(host, sala, datum, termin, tipSale);
+					Kontroler.dodajEvent(host, sala, datum, vreme, tipSale);
 					dispose();
 				}
 			});
@@ -316,12 +315,7 @@ public class ZakazivanjeGUI extends JDialog {
 		return lblIzabranTermin;
 	}
 	
-	private static boolean poklapaSe(int datum, int vreme, String tipSale){
-		if (objekat.datum == datum && objekat.vreme == vreme && objekat.tipSale.equals(tipSale)) {
-			return true;
-		}
-		return false;
-	}
+	
 	private JScrollPane getScrollPane_1() {
 		if (scrollPane == null) {
 			scrollPane = new JScrollPane();

@@ -78,7 +78,7 @@ public class TableModelRezSalaGUI extends AbstractTableModel {
 	@Override
 	public boolean isCellEditable(int rowIndex, int columnIndex) {
 			if (Kontroler.daLiPostojiNekaSlobodnaSalaUTerminu(
-					Kontroler.vratiSlobodneSale(columnIndex, rowIndex+1, tipSale))) {//dodato rowIndex +1
+					Kontroler.vratiSlobodneSale(columnIndex, rowIndex, tipSale))) {
 				return true;
 			} else
 				return false;
