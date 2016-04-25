@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Image;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -21,6 +22,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.ActionEvent;
+import javax.swing.ImageIcon;
 
 public class RezSalaGUI extends JFrame {
 
@@ -171,10 +173,4 @@ public class RezSalaGUI extends JFrame {
 		}
 		return comboBox;
 	}
-
-	/*
-	 * pokusacemo drugaciju implementaciju public String vratiOdabranTipSale() {
-	 * return comboBox.getSelectedItem().toString().toLowerCase().trim(); }
-	 */
-
 }
