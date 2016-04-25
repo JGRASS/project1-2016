@@ -39,10 +39,34 @@ public class ZakazivanjeGUI extends JDialog {
 	private int vreme;
 	private String tipSale;
 	private LinkedList<Sala> sale;
+	
+	//Singleton
+	private static ZakazivanjeGUI objekat;
+	
+	public static ZakazivanjeGUI vratiObjekat(){
+		if (objekat == null) {
+			objekat = new ZakazivanjeGUI();
+		}
+		return objekat;
+	}
+	
+	public static ZakazivanjeGUI vratiObjekat(int datum, int vreme, String tipSale){
+		if (objekat == null) {
+			objekat = new ZakazivanjeGUI(datum, vreme, tipSale);
+		} else if (!poklapaSe(datum, vreme, tipSale)) {
+			//Unisti prozor kako znas i umes :D
+			objekat.dispose();
+			objekat = null;
+			objekat = new ZakazivanjeGUI(datum, vreme, tipSale);
+		}
+		return objekat;
+	}
+	
+	
 	/**
 	 * Create the dialog.
 	 */
-	public ZakazivanjeGUI() {
+	private ZakazivanjeGUI() {
 		setTitle("Rezervacija");
 		setBounds(100, 100, 431, 300);
 		getContentPane().setLayout(new MigLayout("", "[grow]", "[grow]"));
@@ -52,7 +76,7 @@ public class ZakazivanjeGUI extends JDialog {
 		
 	}
 	
-	public ZakazivanjeGUI(int datum, int vreme, String tipSale) {
+	private ZakazivanjeGUI(int datum, int vreme, String tipSale) {
 		setTitle("Rezervacija");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new MigLayout("", "[grow]", "[grow]"));
@@ -225,5 +249,12 @@ public class ZakazivanjeGUI extends JDialog {
 			lblIzabranTermin.setBounds(50, 36, 46, 14);
 		}
 		return lblIzabranTermin;
+	}
+	
+	private static boolean poklapaSe(int datum, int vreme, String tipSale){
+		if (objekat.datum == datum && objekat.vreme == vreme && objekat.tipSale.equals(tipSale)) {
+			return true;
+		}
+		return false;
 	}
 }

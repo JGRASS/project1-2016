@@ -138,7 +138,7 @@ public class RezSalaGUI extends JFrame {
 								/*RezervacijaGUI rg = new RezervacijaGUI(kolona, red, tipSale);
 								rg.setVisible(true);*/
 								
-								ZakazivanjeGUI zk = new ZakazivanjeGUI(kolona, red, tipSale);
+								ZakazivanjeGUI zk = ZakazivanjeGUI.vratiObjekat(kolona, red, tipSale);
 								zk.setVisible(true);
 							}
 
