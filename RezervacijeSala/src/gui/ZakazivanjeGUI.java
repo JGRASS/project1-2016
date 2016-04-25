@@ -148,7 +148,10 @@ public class ZakazivanjeGUI extends JDialog {
 			dlm.addElement(sala.getNaziv_sale());
 		}
 		jlstSale.setModel(dlm);
-		jlstSale.setSelectedIndex(0);
+		if (!sale.isEmpty()) {
+			jlstSale.setSelectedIndex(0);
+		} 
+		
 		
 	}
 	
@@ -278,7 +281,7 @@ public class ZakazivanjeGUI extends JDialog {
 					System.out.println(host);
 					int termin = vreme + 1;
 					Kontroler.dodajEvent(host, sala, datum, termin, tipSale);
-					
+					dispose();
 				}
 			});
 			btnRezervisi.setBounds(10, 125, 89, 23);
