@@ -10,7 +10,7 @@ public class DBConnector {
 	
 	String url = "jdbc:mysql://localhost:3306/sale_v2?autoReconnect=true&useSSL=false";
 	String user = "root";
-	String password = "kosarkas95";
+	String password = "Sennheiser95";
 
 	/**
 	 * Metoda vraca novu konekciju

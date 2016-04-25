@@ -53,6 +53,14 @@ public class ZakazivanjeGUI extends JDialog {
 		return objekat;
 	}
 	
+	/**
+	 * Singleton metoda koja vraca objekat klase u kojoj 
+	 * se nalazi i obezbedjuje da postoji maksimalno jedan objekat te klase.
+	 * @param datum
+	 * @param vreme
+	 * @param tipSale
+	 * @return
+	 */
 	public static ZakazivanjeGUI vratiObjekat(int datum, int vreme, String tipSale){
 		if (objekat == null) {
 			objekat = new ZakazivanjeGUI(datum, vreme, tipSale);
@@ -82,6 +90,12 @@ public class ZakazivanjeGUI extends JDialog {
 		
 	}
 	
+	/**
+	 * Napravi dijalog sa odgovarajucim parametrima
+	 * @param datum
+	 * @param vreme
+	 * @param tipSale
+	 */
 	private ZakazivanjeGUI(int datum, int vreme, String tipSale) {
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setTitle("Rezervacija");
@@ -106,6 +120,10 @@ public class ZakazivanjeGUI extends JDialog {
 		
 	}
 	
+	/**
+	 * Metoda koja puni JList sa odgovarajucim
+	 * slobodnim salama koje mogu da se rezervisu.
+	 */
 	private void napuniListu(){
 		DefaultListModel<String> dlm = new DefaultListModel<>();
 		for(Sala sala : sale){
@@ -115,6 +133,12 @@ public class ZakazivanjeGUI extends JDialog {
 		
 	}
 	
+	/**
+	 * Metoda koja termine pretvara u odgovarajuce stringove
+	 * da bi prikaz bio razumljiviji.
+	 * @param termin
+	 * @return
+	 */
 	private String pretvoriTerminUString(int termin) {
 		switch (termin) {
 		case 0:
@@ -134,6 +158,12 @@ public class ZakazivanjeGUI extends JDialog {
 		}
 	}
 
+	/**
+	 * Metoda koja pretvara dan u odgovarajuce stringove
+	 * da bi prikaz bio razumljiviji.
+	 * @param dan
+	 * @return
+	 */
 	private String pretvoriDanUString(int dan) {
 		switch (dan) {
 		case 1:
@@ -281,7 +311,11 @@ public class ZakazivanjeGUI extends JDialog {
 		}
 		return lblIzabranTipSale;
 	}
-	//Samo sredjuje string za tip sale, da ne pise rc nego RC i umesto amfiteatar ->Amfiteatar ...
+	/**
+	 * Sredjuje string za tip sale
+	 * @param s
+	 * @return
+	 */
 	private String pretvoriTipSaleUString(String s){
 		switch(s){
 		case "rc": return "RC";
