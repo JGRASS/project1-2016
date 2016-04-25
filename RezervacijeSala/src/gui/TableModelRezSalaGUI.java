@@ -23,9 +23,6 @@ public class TableModelRezSalaGUI extends AbstractTableModel {
 		this.tipSale = tipSale;
 	}
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private final String[] kolone = new String[] { "Termin", "Ponedeljak", "Utorak", "Sreda", "Cetvrtak", "Petak", "Subota", "Nedelja" };
 
@@ -81,7 +78,7 @@ public class TableModelRezSalaGUI extends AbstractTableModel {
 	@Override
 	public boolean isCellEditable(int rowIndex, int columnIndex) {
 			if (Kontroler.daLiPostojiNekaSlobodnaSalaUTerminu(
-					Kontroler.vratiSlobodneSale(columnIndex, rowIndex, tipSale))) {
+					Kontroler.vratiSlobodneSale(columnIndex, rowIndex+1, tipSale))) {//dodato rowIndex +1
 				return true;
 			} else
 				return false;
