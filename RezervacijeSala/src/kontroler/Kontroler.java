@@ -80,6 +80,14 @@ public class Kontroler {
 		return slobodne;
 	}
 
+	/**
+	 * Metoda na osnovu parametara dodaje event u bazu.
+	 * @param host - Razlog zakazivanja
+	 * @param sala - Sala koja se zakazuje
+	 * @param datum - Dan u nedelji zakazivanja
+	 * @param vreme - Vreme u toku dana za zakazivanja
+	 * @param tipSale - Tip sale koji se zakazuje
+	 */
 	public static void dodajEvent(String host, String sala, int datum, int vreme, String tipSale){
 		try {
 			int sala_id = 6;
@@ -107,7 +115,15 @@ public class Kontroler {
 		}
 		
 	}
-	
+	/**
+	 * Metoda vraca true ako postoji makar jedna slobodna sala.
+	 * @param slobodneSale - lista slobodnih sala
+	 * @return 
+	 * <ul>
+	 * <li>true - makar jedna slobodna</li>
+	 * <li>false - nijedna slobodna sala</li>
+	 * </ul>
+	 */
 	public static boolean daLiPostojiNekaSlobodnaSalaUTerminu(LinkedList<Sala> slobodneSale){
 		return !slobodneSale.isEmpty();
 	}
