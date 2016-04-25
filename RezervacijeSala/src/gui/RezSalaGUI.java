@@ -33,6 +33,9 @@ public class RezSalaGUI extends JFrame {
 	private JTable table;
 	private JLabel lblTipSale;
 	private JComboBox comboBox;
+	private JPanel panel_1;
+	private JLabel lblYesU;
+	private JLabel lblNoU;
 
 	/**
 	 * Create the frame.
@@ -40,12 +43,13 @@ public class RezSalaGUI extends JFrame {
 	public RezSalaGUI() {
 		setTitle("Rezervacija sala");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 648, 443);
+		setBounds(100, 100, 869, 443);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		contentPane.add(getPanel(), BorderLayout.EAST);
+		contentPane.add(getPanel_1(), BorderLayout.SOUTH);
 
 	}
 
@@ -169,5 +173,29 @@ public class RezSalaGUI extends JFrame {
 			});
 		}
 		return comboBox;
+	}
+	private JPanel getPanel_1() {
+		if (panel_1 == null) {
+			panel_1 = new JPanel();
+			panel_1.setPreferredSize(new Dimension(10, 50));
+			panel_1.setLayout(null);
+			panel_1.add(getLblYesU());
+			panel_1.add(getLblNoU());
+		}
+		return panel_1;
+	}
+	private JLabel getLblYesU() {
+		if (lblYesU == null) {
+			lblYesU = new JLabel("YES - u datom terminu postoji makar jedna slobodna sala");
+			lblYesU.setBounds(10, 11, 326, 14);
+		}
+		return lblYesU;
+	}
+	private JLabel getLblNoU() {
+		if (lblNoU == null) {
+			lblNoU = new JLabel("NO - u datom terminu nema slobodnih sala");
+			lblNoU.setBounds(10, 25, 326, 14);
+		}
+		return lblNoU;
 	}
 }
