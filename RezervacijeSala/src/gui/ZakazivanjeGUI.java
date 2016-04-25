@@ -15,6 +15,7 @@ import kontroler.Kontroler;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JScrollPane;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
@@ -61,7 +62,7 @@ public class ZakazivanjeGUI extends JDialog {
 	 * @param tipSale
 	 * @return
 	 */
-	public static ZakazivanjeGUI vratiObjekat(int datum, int vreme, String tipSale){
+	/*public static ZakazivanjeGUI vratiObjekat(int datum, int vreme, String tipSale){
 		if (objekat == null) {
 			objekat = new ZakazivanjeGUI(datum, vreme, tipSale);
 		} else if (!poklapaSe(datum, vreme, tipSale)) {
@@ -69,7 +70,24 @@ public class ZakazivanjeGUI extends JDialog {
 			objekat.dispose();
 			objekat = null;
 			objekat = new ZakazivanjeGUI(datum, vreme, tipSale);
+		} else if (poklapaSe(datum, vreme, tipSale)) {
+			objekat.setVisible(false);
+			objekat.revalidate();
+			objekat.repaint();
+			objekat.setVisible(true);
 		}
+		return objekat;
+	}*/
+	
+	public static ZakazivanjeGUI vratiObjekat(int datum, int vreme, String tipSale){
+		if (objekat == null) {
+			objekat = new ZakazivanjeGUI(datum, vreme, tipSale);
+		} else {
+			//Unisti prozor kako znas i umes :D
+			objekat.dispose();
+			objekat = null;
+			objekat = new ZakazivanjeGUI(datum, vreme, tipSale);
+		} 
 		return objekat;
 	}
 	
@@ -110,7 +128,7 @@ public class ZakazivanjeGUI extends JDialog {
 		this.tipSale = tipSale;
 		//JEBENI TERMINI KRECU OD 1 ZA 8 UJUTRU A OVDE VREME KRECE OD NULE JEBACU VAS U USTA
 		// ne psuj olosu
-		sale = Kontroler.vratiSlobodneSale(datum, vreme+1, tipSale);
+		sale = Kontroler.vratiSlobodneSale(datum, vreme, tipSale);//vreme+1
 		napuniListu();
 		setTitle("Rezervacija");
 		lblIzabranTermin.setText(pretvoriTerminUString(vreme));
@@ -130,6 +148,7 @@ public class ZakazivanjeGUI extends JDialog {
 			dlm.addElement(sala.getNaziv_sale());
 		}
 		jlstSale.setModel(dlm);
+		jlstSale.setSelectedIndex(0);
 		
 	}
 	
@@ -141,17 +160,17 @@ public class ZakazivanjeGUI extends JDialog {
 	 */
 	private String pretvoriTerminUString(int termin) {
 		switch (termin) {
-		case 0:
-			return "8:15-10:00";
 		case 1:
-			return "10:15 - 12:00";
+			return "8:15-10:00";
 		case 2:
-			return "12:15 - 14:00";
+			return "10:15 - 12:00";
 		case 3:
-			return "14:15 - 16:00";
+			return "12:15 - 14:00";
 		case 4:
-			return "16:15 - 18:00";
+			return "14:15 - 16:00";
 		case 5:
+			return "16:15 - 18:00";
+		case 6:
 			return "18:15 - 20:00";
 		default:
 			return "" + termin;
@@ -244,12 +263,22 @@ public class ZakazivanjeGUI extends JDialog {
 			btnRezervisi.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 //```````````````````OVI PRINTOVI SU SAMO TESTIRANJA RADI``````````````
+					
+					if (jlstSale.getSelectedValue()==null) {
+						JOptionPane.showMessageDialog(null, "Morate izabrati salu","Greska",JOptionPane.WARNING_MESSAGE);
+						return;
+					}
 					String sala = jlstSale.getSelectedValue().toString().trim();
+
+					if (txtHost.getText().isEmpty()) {
+						JOptionPane.showMessageDialog(null, "Morate uneti hosta","Greska",JOptionPane.WARNING_MESSAGE);
+					}
 					System.out.println(sala);
 					String host = txtHost.getText();
 					System.out.println(host);
 					int termin = vreme + 1;
-					Kontroler.dodajEvent(host, sala, datum, termin, tipSale);;
+					Kontroler.dodajEvent(host, sala, datum, termin, tipSale);
+					
 				}
 			});
 			btnRezervisi.setBounds(10, 125, 89, 23);

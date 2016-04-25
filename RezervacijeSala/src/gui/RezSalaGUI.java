@@ -133,7 +133,7 @@ public class RezSalaGUI extends JFrame {
 
 						@Override
 						public void mousePressed(MouseEvent e) {
-							int red = table.getSelectedRow();
+							int red = table.getSelectedRow() + 1;
 							int kolona = table.getSelectedColumn();
 							if (table.getModel().getValueAt(red, kolona)== "NO") {
 								return;
