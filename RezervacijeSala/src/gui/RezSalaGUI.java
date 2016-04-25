@@ -33,10 +33,6 @@ public class RezSalaGUI extends JFrame {
 	private JComboBox comboBox;
 
 	/**
-	 * Launch the application.
-	 */
-
-	/**
 	 * Create the frame.
 	 */
 	public RezSalaGUI() {
@@ -82,6 +78,7 @@ public class RezSalaGUI extends JFrame {
 		return table;
 	}
 
+	
 	private JLabel getLblTipSale() {
 		if (lblTipSale == null) {
 			lblTipSale = new JLabel("Tip sale:");
@@ -89,6 +86,12 @@ public class RezSalaGUI extends JFrame {
 		return lblTipSale;
 	}
 
+	/**
+	 * Metoda vraca comboBox koji kreira tabelu na odabir odgovarajuceg tipa sale
+	 * i na nju postavlja listener na klik tabele koji ukoliko u polju postoji slobodna sala
+	 * otvara novi JDialog sa ponudjenim salama i mogucnoscu da se odabere sala i rezervise.
+	 * @return combo box
+	 */
 	private JComboBox getComboBox() {
 		if (comboBox == null) {
 			comboBox = new JComboBox();
