@@ -87,6 +87,7 @@ public class ZakazivanjeGUI extends JDialog {
 		this.vreme = vreme;
 		this.tipSale = tipSale;
 		//JEBENI TERMINI KRECU OD 1 ZA 8 UJUTRU A OVDE VREME KRECE OD NULE JEBACU VAS U USTA
+		// ne psuj olosu
 		sale = Kontroler.vratiSlobodneSale(datum, vreme+1, tipSale);
 		napuniListu();
 		setTitle("Rezervacija");
