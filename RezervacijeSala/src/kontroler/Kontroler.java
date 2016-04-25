@@ -96,7 +96,6 @@ public class Kontroler {
 			for(Sala salica : sveSale){
 				if(salica.getNaziv_sale().equals(sala)){
 					sala_id = salica.getSala_id();
-					System.out.println("Sala id: " + sala_id);
 					break;
 				}
 			}
@@ -104,7 +103,6 @@ public class Kontroler {
 			for(Termin t : sviTermini){
 				if(t.getDatum() == datum && t.getVreme() == vreme){
 					termin_id = t.getTermin_id();
-					System.out.println("Termin id: " + termin_id);
 					break;
 				}
 			}
