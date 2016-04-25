@@ -60,8 +60,6 @@ public class TableModelRezSalaGUI extends AbstractTableModel {
 			}
 		} else {
 			if (isCellEditable(row, column)) {
-				System.out.println(Kontroler.daLiPostojiNekaSlobodnaSalaUTerminu(
-					Kontroler.vratiSlobodneSale(column, row, tipSale)));
 				return "YES";
 			} else {
 				return "NO";

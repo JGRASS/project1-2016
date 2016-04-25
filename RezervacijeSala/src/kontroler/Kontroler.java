@@ -79,16 +79,33 @@ public class Kontroler {
 		
 		return slobodne;
 	}
-	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Obrati paznju na indexe
+
 	public static void dodajEvent(String host, String sala, int datum, int vreme, String tipSale){
-		Termin termin = new Termin(90, vreme, datum);
-		Sala salla = new Sala(90, sala, tipSale);
-		Event event = new Event(host, salla, termin);
 		try {
-			testModel.unesiEvent(event);
+			int sala_id = 6;
+			int termin_id = 6;
+			LinkedList<Sala> sveSale = testModel.sveSaleDatogTipa(tipSale);
+			for(Sala salica : sveSale){
+				if(salica.getNaziv_sale().equals(sala)){
+					sala_id = salica.getSala_id();
+					System.out.println("Sala id: " + sala_id);
+					break;
+				}
+			}
+			LinkedList<Termin> sviTermini = testModel.sviTermini();
+			for(Termin t : sviTermini){
+				if(t.getDatum() == datum && t.getVreme() == vreme){
+					termin_id = t.getTermin_id();
+					System.out.println("Termin id: " + termin_id);
+					break;
+				}
+			}
+			testModel.unesiEvent(host, termin_id, sala_id);
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 	}
 	
 	public static boolean daLiPostojiNekaSlobodnaSalaUTerminu(LinkedList<Sala> slobodneSale){
@@ -100,7 +117,6 @@ public class Kontroler {
 	public static void main(String[] args) {
 		gui = new RezSalaGUI();
 		gui.setVisible(true);
-
 		
 		/*
 		LinkedList<Sala> slobodne = vratiSlobodneSaleZaDatiTerminITipSale(4, 10, "amfiteatar");

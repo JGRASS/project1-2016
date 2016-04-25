@@ -119,9 +119,11 @@ public class RezervacijaGUI extends JFrame {
 			btnRezervacija = new JButton("Rezervisi");
 			btnRezervacija.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					String sala =(String) jlstSale.getSelectedValue();
+					String sala = jlstSale.getSelectedValue().toString().trim();
+					System.out.println(sala);
 					String host = txtHost.getText();
-					Kontroler.dodajEvent(host, sala, datum, vreme, sala);
+					System.out.println(host);
+					Kontroler.dodajEvent(host, sala, datum, vreme, tipSale);
 				}
 			});
 			btnRezervacija.setBounds(10, 135, 100, 23);

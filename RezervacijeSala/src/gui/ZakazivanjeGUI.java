@@ -62,7 +62,8 @@ public class ZakazivanjeGUI extends JDialog {
 		this.datum = datum;
 		this.vreme = vreme;
 		this.tipSale = tipSale;
-		sale = Kontroler.vratiSlobodneSale(datum, vreme, tipSale);
+		//JEBENI TERMINI KRECU OD 1 ZA 8 UJUTRU A OVDE VREME KRECE OD NULE JEBACU VAS U USTA
+		sale = Kontroler.vratiSlobodneSale(datum, vreme+1, tipSale);
 		napuniListu();
 		setTitle("Rezervacija");
 		lblIzabranTermin.setText(pretvoriTerminUString(vreme));
@@ -185,9 +186,13 @@ public class ZakazivanjeGUI extends JDialog {
 			btnRezervisi = new JButton("Rezervisi");
 			btnRezervisi.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					String sala =(String) jlstSale.getSelectedValue();
+//```````````````````OVI PRINTOVI SU SAMO TESTIRANJA RADI``````````````
+					String sala = jlstSale.getSelectedValue().toString().trim();
+					System.out.println(sala);
 					String host = txtHost.getText();
-					Kontroler.dodajEvent(host, sala, datum, vreme, sala);
+					System.out.println(host);
+					int termin = vreme + 1;
+					Kontroler.dodajEvent(host, sala, datum, termin, tipSale);;
 				}
 			});
 			btnRezervisi.setBounds(7, 129, 89, 23);
