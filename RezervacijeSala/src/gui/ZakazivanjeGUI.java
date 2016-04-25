@@ -276,9 +276,7 @@ public class ZakazivanjeGUI extends JDialog {
 					if (txtHost.getText().isEmpty()) {
 						JOptionPane.showMessageDialog(null, "Morate uneti hosta","Greska",JOptionPane.WARNING_MESSAGE);
 					}
-					System.out.println(sala);
 					String host = txtHost.getText();
-					System.out.println(host);
 					Kontroler.dodajEvent(host, sala, datum, vreme, tipSale);
 					dispose();
 				}

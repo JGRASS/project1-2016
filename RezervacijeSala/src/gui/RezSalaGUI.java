@@ -133,19 +133,6 @@ public class RezSalaGUI extends JFrame {
 
 						@Override
 						public void mousePressed(MouseEvent e) {
-							int red = table.getSelectedRow();
-							int kolona = table.getSelectedColumn();
-							if (table.getModel().getValueAt(red, kolona)== "NO") {
-								return;
-							}
-
-							if (kolona != 0) {
-								/*RezervacijaGUI rg = new RezervacijaGUI(kolona, red, tipSale);
-								rg.setVisible(true);*/
-								
-								ZakazivanjeGUI zk = ZakazivanjeGUI.vratiObjekat(kolona, red, tipSale);
-								zk.setVisible(true);
-							}
 
 						}
 
@@ -163,8 +150,18 @@ public class RezSalaGUI extends JFrame {
 
 						@Override
 						public void mouseClicked(MouseEvent e) {
-							// TODO Auto-generated method stub
+							int red = table.getSelectedRow();
+							int kolona = table.getSelectedColumn();
+							if (table.getModel().getValueAt(red, kolona)== "NO") {
+								return;
+							}
 
+							if (kolona != 0) {
+								/*RezervacijaGUI rg = new RezervacijaGUI(kolona, red, tipSale);
+								rg.setVisible(true);*/
+								ZakazivanjeGUI zk = ZakazivanjeGUI.vratiObjekat(kolona, red, tipSale);
+								zk.setVisible(true);
+							}
 						}
 					});
 					
