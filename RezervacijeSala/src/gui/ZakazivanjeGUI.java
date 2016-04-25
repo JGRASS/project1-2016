@@ -19,11 +19,11 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Dimension;
 
 public class ZakazivanjeGUI extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JScrollPane scrollPane;
 	private JList jlstSale;
 	private JPanel panel;
 	private JLabel lblDan;
@@ -42,6 +42,9 @@ public class ZakazivanjeGUI extends JDialog {
 	
 	//Singleton
 	private static ZakazivanjeGUI objekat;
+	private JScrollPane scrollPane;
+	private JLabel lblTipSale;
+	private JLabel lblIzabranTipSale;
 	
 	public static ZakazivanjeGUI vratiObjekat(){
 		if (objekat == null) {
@@ -67,20 +70,25 @@ public class ZakazivanjeGUI extends JDialog {
 	 * Create the dialog.
 	 */
 	private ZakazivanjeGUI() {
+		setResizable(false);
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setTitle("Rezervacija");
-		setBounds(100, 100, 431, 300);
-		getContentPane().setLayout(new MigLayout("", "[grow]", "[grow]"));
-		getContentPane().add(getScrollPane(), "cell 0 0,grow");
+		setBounds(100, 100, 233, 254);
+		getContentPane().setLayout(new BorderLayout(0, 0));
+		getContentPane().add(getPanel(), BorderLayout.EAST);
+		getContentPane().add(getScrollPane_1(), BorderLayout.CENTER);
 		contentPanel.setLayout(new FlowLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		
 	}
 	
 	private ZakazivanjeGUI(int datum, int vreme, String tipSale) {
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setTitle("Rezervacija");
-		setBounds(100, 100, 450, 300);
-		getContentPane().setLayout(new MigLayout("", "[grow]", "[grow]"));
-		getContentPane().add(getScrollPane(), "cell 0 0,grow");
+		setBounds(100, 100, 292, 269);
+		getContentPane().setLayout(new BorderLayout(0, 0));
+		getContentPane().add(getPanel(), BorderLayout.EAST);
+		getContentPane().add(getScrollPane_1(), BorderLayout.CENTER);
 		contentPanel.setLayout(new FlowLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.datum = datum;
@@ -93,6 +101,7 @@ public class ZakazivanjeGUI extends JDialog {
 		setTitle("Rezervacija");
 		lblIzabranTermin.setText(pretvoriTerminUString(vreme));
 		lblIzabranDan.setText(pretvoriDanUString(datum));
+		lblIzabranTipSale.setText(pretvoriTipSaleUString(tipSale));
 		setResizable(false);
 		
 	}
@@ -145,26 +154,17 @@ public class ZakazivanjeGUI extends JDialog {
 			return "" + dan;
 		}
 	}
-	
-	
-
-	private JScrollPane getScrollPane() {
-		if (scrollPane == null) {
-			scrollPane = new JScrollPane();
-			scrollPane.setRowHeaderView(getJlstSale());
-			scrollPane.setViewportView(getPanel());
-		}
-		return scrollPane;
-	}
 	private JList getJlstSale() {
 		if (jlstSale == null) {
 			jlstSale = new JList();
+			
 		}
 		return jlstSale;
 	}
 	private JPanel getPanel() {
 		if (panel == null) {
 			panel = new JPanel();
+			panel.setPreferredSize(new Dimension(140, 10));
 			panel.setLayout(null);
 			panel.add(getLblDan());
 			panel.add(getLblTermin());
@@ -174,6 +174,8 @@ public class ZakazivanjeGUI extends JDialog {
 			panel.add(getBtnOtkazi());
 			panel.add(getLblIzabranDan());
 			panel.add(getLblIzabranTermin());
+			panel.add(getLblTipSale());
+			panel.add(getLblIzabranTipSale());
 		}
 		return panel;
 	}
@@ -194,14 +196,14 @@ public class ZakazivanjeGUI extends JDialog {
 	private JLabel getLblHost() {
 		if (lblHost == null) {
 			lblHost = new JLabel("Host: ");
-			lblHost.setBounds(10, 61, 46, 14);
+			lblHost.setBounds(10, 85, 38, 14);
 		}
 		return lblHost;
 	}
 	private JTextField getTxtHost() {
 		if (txtHost == null) {
 			txtHost = new JTextField();
-			txtHost.setBounds(10, 78, 86, 20);
+			txtHost.setBounds(57, 82, 73, 20);
 			txtHost.setColumns(10);
 		}
 		return txtHost;
@@ -220,7 +222,7 @@ public class ZakazivanjeGUI extends JDialog {
 					Kontroler.dodajEvent(host, sala, datum, termin, tipSale);;
 				}
 			});
-			btnRezervisi.setBounds(7, 129, 89, 23);
+			btnRezervisi.setBounds(10, 125, 89, 23);
 		}
 		return btnRezervisi;
 	}
@@ -233,7 +235,7 @@ public class ZakazivanjeGUI extends JDialog {
 					
 				}
 			});
-			btnOtkazi.setBounds(7, 163, 89, 23);
+			btnOtkazi.setBounds(10, 159, 89, 23);
 		}
 		return btnOtkazi;
 	}
@@ -247,7 +249,7 @@ public class ZakazivanjeGUI extends JDialog {
 	private JLabel getLblIzabranTermin() {
 		if (lblIzabranTermin == null) {
 			lblIzabranTermin = new JLabel("");
-			lblIzabranTermin.setBounds(50, 36, 46, 14);
+			lblIzabranTermin.setBounds(60, 36, 73, 14);
 		}
 		return lblIzabranTermin;
 	}
@@ -257,5 +259,35 @@ public class ZakazivanjeGUI extends JDialog {
 			return true;
 		}
 		return false;
+	}
+	private JScrollPane getScrollPane_1() {
+		if (scrollPane == null) {
+			scrollPane = new JScrollPane();
+			scrollPane.setViewportView(getJlstSale());
+		}
+		return scrollPane;
+	}
+	private JLabel getLblTipSale() {
+		if (lblTipSale == null) {
+			lblTipSale = new JLabel("Tip sale:");
+			lblTipSale.setBounds(10, 60, 60, 14);
+		}
+		return lblTipSale;
+	}
+	private JLabel getLblIzabranTipSale() {
+		if (lblIzabranTipSale == null) {
+			lblIzabranTipSale = new JLabel("");
+			lblIzabranTipSale.setBounds(70, 60, 60, 14);
+		}
+		return lblIzabranTipSale;
+	}
+	//Samo sredjuje string za tip sale, da ne pise rc nego RC i umesto amfiteatar ->Amfiteatar ...
+	private String pretvoriTipSaleUString(String s){
+		switch(s){
+		case "rc": return "RC";
+		case "amfiteatar": return "Amfiteatar";
+		case "ucionica": return "Ucionica";
+		default: return s;
+		}
 	}
 }
