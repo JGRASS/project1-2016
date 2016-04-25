@@ -68,6 +68,11 @@ public class Model {
 		return dogadjaji;
 	}
 
+	/**
+	 * Metoda vraca listu svih mogucih termina
+	 * @return lista termina
+	 * @throws java.sql.SQLException
+	 */
 	public LinkedList<Termin> sviTermini() throws SQLException {
 		Connection conn;
 		LinkedList<Termin> termini;
@@ -93,8 +98,8 @@ public class Model {
 	 * Metoda proverava da li je data sala slobodna odnosno da li se ne poklapa
 	 * sa nekom salom iz liste eventa.
 	 * 
-	 * @param eventoviUTerminu
-	 * @param s
+	 * @param eventoviUTerminu - Svi eventi kojima je zajednicki jedan termin
+	 * @param s - sala odredjenog tipa
 	 * @return true ako je sala slobodna u
 	 */
 	private boolean daLiJeSalaSlobodna(LinkedList<Event> eventoviUTerminu, Sala s) {
@@ -112,8 +117,8 @@ public class Model {
 	 * Metoda vraca listu slobodnih sala u datom terminu na osnovu liste sala
 	 * odredjenog tipa i liste eventa.
 	 * 
-	 * @param sale
-	 * @param eventoviUTerminu
+	 * @param sale - sale odrdjenog tipa
+	 * @param eventoviUTerminu - eventi u odredjenom terminu
 	 * @return lista slobodnih sala
 	 */
 	public LinkedList<Sala> vratiSlobodneSaleUTerminu(LinkedList<Sala> sale, LinkedList<Event> eventoviUTerminu) {
@@ -153,6 +158,13 @@ public class Model {
 		return sale;
 	}
 
+	/**
+	 * Metoda bacuje novi event u tabelu
+	 * @param host - Razlog zakazivanja sale
+	 * @param termin_id - ID termina za koji je event zakazan
+	 * @param sala_id - ID sale za koju je event zakazan
+	 * @throws java.sql.SQLException
+	 */
 	public void unesiEvent(String host, int termin_id, int sala_id) throws SQLException {
 		Connection conn = konektor.connect();
 		String upit = "INSERT INTO event (event_host, event.termin_id, event.sala_id) VALUES (?,?,?)";
