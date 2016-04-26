@@ -54,6 +54,7 @@ public class ZakazivanjeGUI extends JDialog {
 		return objekat;
 	}
 	
+	
 	/**
 	 * Singleton metoda koja vraca objekat klase u kojoj 
 	 * se nalazi i obezbedjuje da postoji maksimalno jedan objekat te klase.
@@ -62,23 +63,6 @@ public class ZakazivanjeGUI extends JDialog {
 	 * @param tipSale
 	 * @return
 	 */
-	/*public static ZakazivanjeGUI vratiObjekat(int datum, int vreme, String tipSale){
-		if (objekat == null) {
-			objekat = new ZakazivanjeGUI(datum, vreme, tipSale);
-		} else if (!poklapaSe(datum, vreme, tipSale)) {
-			//Unisti prozor kako znas i umes :D
-			objekat.dispose();
-			objekat = null;
-			objekat = new ZakazivanjeGUI(datum, vreme, tipSale);
-		} else if (poklapaSe(datum, vreme, tipSale)) {
-			objekat.setVisible(false);
-			objekat.revalidate();
-			objekat.repaint();
-			objekat.setVisible(true);
-		}
-		return objekat;
-	}*/
-	
 	public static ZakazivanjeGUI vratiObjekat(int datum, int vreme, String tipSale){
 		if (objekat == null) {
 			objekat = new ZakazivanjeGUI(datum, vreme, tipSale);
@@ -126,11 +110,8 @@ public class ZakazivanjeGUI extends JDialog {
 		this.datum = datum;
 		this.vreme = vreme;
 		this.tipSale = tipSale;
-		//JEBENI TERMINI KRECU OD 1 ZA 8 UJUTRU A OVDE VREME KRECE OD NULE JEBACU VAS U USTA
-		// ne psuj olosu
-		sale = Kontroler.vratiSlobodneSale(datum, vreme, tipSale);//vreme+1
+		sale = Kontroler.vratiSlobodneSale(datum, vreme, tipSale);
 		napuniListu();
-		setTitle("Rezervacija");
 		lblIzabranTermin.setText(pretvoriTerminUString(vreme));
 		lblIzabranDan.setText(pretvoriDanUString(datum));
 		lblIzabranTipSale.setText(pretvoriTipSaleUString(tipSale));
@@ -265,7 +246,6 @@ public class ZakazivanjeGUI extends JDialog {
 			btnRezervisi = new JButton("Rezervisi");
 			btnRezervisi.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-//```````````````````OVI PRINTOVI SU SAMO TESTIRANJA RADI``````````````
 					
 					if (jlstSale.getSelectedValue()==null) {
 						JOptionPane.showMessageDialog(null, "Morate izabrati salu","Greska",JOptionPane.WARNING_MESSAGE);

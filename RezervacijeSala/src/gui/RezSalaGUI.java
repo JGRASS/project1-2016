@@ -42,7 +42,7 @@ public class RezSalaGUI extends JFrame {
 	 */
 	public RezSalaGUI() {
 		setTitle("Rezervacija sala");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 869, 443);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -164,6 +164,7 @@ public class RezSalaGUI extends JFrame {
 								/*RezervacijaGUI rg = new RezervacijaGUI(kolona, red, tipSale);
 								rg.setVisible(true);*/
 								ZakazivanjeGUI zk = ZakazivanjeGUI.vratiObjekat(kolona, red, tipSale);
+								zk.setLocationRelativeTo(null);
 								zk.setVisible(true);
 							}
 						}
