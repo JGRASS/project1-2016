@@ -177,11 +177,33 @@ public class Model {
 		conn.close();
 	}
 
-	/*
-	 * public int vratiMaxIdSale() throws SQLException{ String upit =
-	 * "SELECT sale_id from table ORDER BY id DESC LIMIT 1"; Connection conn =
-	 * konektor.connect(); Statement statement = (Statement)
-	 * conn.createStatement(); ResultSet rs = statement.executeQuery(upit); int
-	 * max = rs.getInt(1); return max; }
-	 */
+	public LinkedList<Termin> pronadjiSveTermineZaDatuSalu(String naziv_sale) throws SQLException{
+		Connection conn = konektor.connect();
+		String upit = "select event.termin_id, termin.vreme, termin.datum from event inner join termin on event.termin_id = termin.termin_id inner join sala on event.sala_id = sala.sala_id where sala.naziv_sale =" + "'" + naziv_sale+ "'";
+		LinkedList<Termin> termini = new LinkedList<Termin>();
+		PreparedStatement ps = (PreparedStatement) conn.prepareStatement(upit);
+		ResultSet rs = ps.executeQuery();
+		while (rs.next()) {
+			int termin_id = rs.getInt(1);
+			int vreme = rs.getInt(2);
+			int datum = rs.getInt(3);
+			termini.add(new Termin(termin_id, vreme, datum));
+		}
+		rs.close();
+		ps.close();
+		conn.close();
+		return termini;
+	}
+
+	public String vratiNazivHosta(int vreme, int datum, String naziv_sale) throws SQLException {
+		Connection conn = konektor.connect();
+		String upit = "select event.event_host from event inner join sala on event.sala_id = sala.sala_id inner join termin on event.termin_id = termin.termin_id where sala.naziv_sale =" + "'" + naziv_sale + "'" + " and termin.datum = " + "'" + datum + "'" + " and termin.vreme = " + "'" + vreme + "'";             
+		PreparedStatement ps = (PreparedStatement) conn.prepareStatement(upit);
+		String host = null;
+		ResultSet rs = ps.executeQuery();
+		while (rs.next()) {
+			host = rs.getString(1);
+		}
+		return host;
+	}
 }
