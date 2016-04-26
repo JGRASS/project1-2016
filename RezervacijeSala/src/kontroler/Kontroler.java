@@ -14,49 +14,7 @@ public class Kontroler {
 	private LinkedList<Event> dogadjaji = null;
 	private static Model testModel = new Model();
 	private static RezSalaGUI gui;
-	//Model testModel = new Model();
 	
-	
-	
-
-	/*
-	 * public void prikupiEventoveZaDatiTerminITipSale(int datum, int vreme,
-	 * String tipSale) { try { dogadjaji =
-	 * testModel.prikupiEventoveZaDatiTerminITipSale(datum, vreme, tipSale); for
-	 * (Event event : dogadjaji) { System.out.println("Sala: " +
-	 * event.getSala().getNaziv_sale() + "\tTip sale: " +
-	 * event.getSala().getTip_sale() + "\tDatum: " +
-	 * event.getTermin().getDatum() + "\tTermin: " +
-	 * event.getTermin().getVreme() + "\tPredmet: " + event.getHost() +
-	 * "\tid sale:" + event.getSala().getSala_id() + "\tid termina: " +
-	 * event.getTermin().getTermin_id()); } } catch (SQLException e) { // TODO
-	 * Auto-generated catch block e.printStackTrace(); } }
-	 */
-	/*
-	 * public void unesiEvent(Event e) { try { testModel.unesiEvent(e); } catch
-	 * (SQLException e1) { // TODO Auto-generated catch block
-	 * e1.printStackTrace(); } }
-	 */
-	/*
-	 * public void sviEventoviZaDatoVremeIDatum(int vreme, int datum) { try {
-	 * dogadjaji = testModel.prikupiEventoveZaDatiTermin(datum, vreme); for
-	 * (Event event : dogadjaji) { System.out.println("Sala: " +
-	 * event.getSala().getNaziv_sale() + "\tTip sale: " +
-	 * event.getSala().getTip_sale() + "\tDatum: " +
-	 * event.getTermin().getDatum() + "\tTermin: " +
-	 * event.getTermin().getVreme() + "\tPredmet: " + event.getHost() +
-	 * "\tid sale:" + event.getSala().getSala_id() + "\tid termina: " +
-	 * event.getTermin().getTermin_id()); } } catch (SQLException e) { // TODO
-	 * Auto-generated catch block e.printStackTrace(); } }
-	 */
-	/*
-	 * public void sveSale(String s) { try { LinkedList<Sala> sale =
-	 * testModel.sveSaleDatogTipa(s); System.out.println(
-	 * "ID SALE: \tNAZIV SALE \tTIP SALE"); for (Sala sala : sale) {
-	 * System.out.println(sala.getSala_id() + "\t\t" + sala.getNaziv_sale() +
-	 * "\t\t" + sala.getTip_sale()); } } catch (SQLException e) { // TODO
-	 * Auto-generated catch block e.printStackTrace(); } }
-	 */
 
 	/**
 	 * Metoda na osnovu parametara vraca slobodne sale odredjenog tipa u datom terminu
@@ -125,12 +83,31 @@ public class Kontroler {
 	public static boolean daLiPostojiNekaSlobodnaSalaUTerminu(LinkedList<Sala> slobodneSale){
 		return !slobodneSale.isEmpty();
 	}
+	
+	/**
+	 * Metoda na osnovu naziva sale vraca listu zauzetih termina
+	 * @param sala
+	 * @return lista termina
+	 */
+	public static LinkedList<Termin> vratiZauzeteTermineZaSalu(String sala){
+		LinkedList<Termin> termini = new LinkedList<>();
+		try {
+			int idSale = testModel.vratiIdSale(sala);
+			termini = testModel.vratiZauzeteTermine(idSale);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return termini;
+	}
+	
+	
 	/*
 	 * TEST
 	 */
 	public static void main(String[] args) {
-		gui = new RezSalaGUI();
-		gui.setVisible(true);
+		//gui = new RezSalaGUI();
+		//gui.setVisible(true);
 		
 		/*
 		LinkedList<Sala> slobodne = vratiSlobodneSaleZaDatiTerminITipSale(4, 10, "amfiteatar");
@@ -149,9 +126,24 @@ public class Kontroler {
 
 		
 		
+		/*try {
+			System.out.println(testModel.vratiIdSale("B103"));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
 		
-		
-		
+		/*try {
+			LinkedList<Termin> termini = testModel.vratiZauzeteTermine(1);
+			for (int i = 0; i < termini.size(); i++) {
+				System.out.println("ID = " + termini.get(i).getTermin_id());
+				System.out.println("Vreme = " + termini.get(i).getVreme());
+				System.out.println("Datum = " + termini.get(i).getDatum());
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
 		
 		
 		
