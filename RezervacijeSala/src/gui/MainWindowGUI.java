@@ -1,24 +1,25 @@
 package gui;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
 
 public class MainWindowGUI extends JFrame {
 
 	private JPanel contentPane;
 	private JButton btnRezervisiSalu;
 	private JButton btnProveriSalu;
-
+	private JLabel lblLogo;
+	ImageIcon logo;
 	/**
 	 * Launch the application.
 	 */
+	/*
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -31,11 +32,12 @@ public class MainWindowGUI extends JFrame {
 			}
 		});
 	}
-
+	*/
 	/**
 	 * Create the frame.
 	 */
 	public MainWindowGUI() {
+		setTitle("Sistem za rezervisanje sala");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 425, 300);
 		contentPane = new JPanel();
@@ -44,6 +46,22 @@ public class MainWindowGUI extends JFrame {
 		contentPane.setLayout(null);
 		contentPane.add(getBtnRezervisiSalu());
 		contentPane.add(getBtnProveriSalu());
+		/*
+		try {
+			URL url = new URL("http://www.fon.bg.ac.rs/wp-content/themes/fon/img/fon-logo=cir=.png");
+			logo = new ImageIcon(url);
+			lblLogo = new JLabel(logo);
+			lblLogo.setBounds(0, 0, 409, 261);
+			contentPane.add(lblLogo);
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		*/
+		logo = new ImageIcon("resource/img/foncic.png");
+		lblLogo = new JLabel(logo);
+		lblLogo.setBounds(0, 0, 409, 261);
+		contentPane.add(lblLogo);
 	}
 	private JButton getBtnRezervisiSalu() {
 		if (btnRezervisiSalu == null) {
@@ -54,7 +72,7 @@ public class MainWindowGUI extends JFrame {
 					rez.setVisible(true);
 				}
 			});
-			btnRezervisiSalu.setBounds(64, 168, 123, 23);
+			btnRezervisiSalu.setBounds(63, 218, 123, 32);
 		}
 		return btnRezervisiSalu;
 	}
@@ -68,8 +86,16 @@ public class MainWindowGUI extends JFrame {
 					prikaz.setVisible(true);
 				}
 			});
-			btnProveriSalu.setBounds(197, 168, 123, 23);
+			btnProveriSalu.setBounds(212, 218, 123, 32);
 		}
 		return btnProveriSalu;
+	}
+	private JLabel getLblLogo() {
+		if (lblLogo == null) {
+			logo = new ImageIcon(getClass().getResource("/resource/img/foncic.png"));
+			lblLogo = new JLabel(logo);
+			lblLogo.setBounds(0, 0, 409, 261);
+		}
+		return lblLogo;
 	}
 }
