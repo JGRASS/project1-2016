@@ -30,6 +30,7 @@ public class MainWindowGUI extends JFrame {
 		contentPane.setLayout(null);
 		contentPane.add(getBtnRezervisiSalu());
 		contentPane.add(getBtnProveriSalu());
+		setResizable(false);
 		/*
 		try {
 			URL url = new URL("http://www.fon.bg.ac.rs/wp-content/themes/fon/img/fon-logo=cir=.png");

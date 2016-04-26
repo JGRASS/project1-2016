@@ -206,4 +206,24 @@ public class Model {
 		}
 		return host;
 	}
+	
+	/**
+	 * Metoda vraca sve sale;
+	 * @return lista sala
+	 * @throws java.sqlSQLException
+	 */
+	public LinkedList<Sala> vratiSveSale() throws SQLException{
+		LinkedList<Sala> sale = new LinkedList<>();
+		Connection conn = konektor.connect();
+		String upit = "SELECT * FROM sala";
+		PreparedStatement ps = (PreparedStatement) conn.prepareStatement(upit);
+		ResultSet rs = ps.executeQuery();
+		while(rs.next()){
+			int id = rs.getInt(1);
+			String naziv = rs.getString(2);
+			String tip = rs.getString(3);
+			sale.add(new Sala(id, naziv, tip));
+		}
+		return sale;
+	}
 }

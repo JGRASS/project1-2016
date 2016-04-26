@@ -1,6 +1,7 @@
 package kontroler;
 
 import java.sql.SQLException;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 import domen.Event;
@@ -115,5 +116,23 @@ public class Kontroler {
 		}
 		return null;
 	}
+	
+	public static boolean daLiPostojiSala(String sala){
+		LinkedList<Sala> sale;
+		try {
+			sale = testModel.vratiSveSale();
+			for(Sala s : sale){
+				if (s.getNaziv_sale().equals(sala.toUpperCase())) {
+					return true;
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+
 
 }

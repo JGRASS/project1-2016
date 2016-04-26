@@ -7,10 +7,14 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
+
+import kontroler.Kontroler;
+
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.Dimension;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -96,6 +100,13 @@ public class PrikazSaleGUI extends JFrame {
 			btnPrikazi.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					String sala = txtNazivSale.getText().toUpperCase().trim();
+					if (sala == null || sala.isEmpty()) {
+						JOptionPane.showMessageDialog(null, "Morate uneti salu", "Greska", JOptionPane.WARNING_MESSAGE);
+						return;
+					} else if (!Kontroler.daLiPostojiSala(sala)) {
+						JOptionPane.showMessageDialog(null, "Sala koju ste uneli ne postoji", "Greska", JOptionPane.WARNING_MESSAGE);
+						return;
+					}
 					if (table != null) {
 						table.setModel(new TableModelPrikazSaleGUI(sala));
 						table.repaint();
