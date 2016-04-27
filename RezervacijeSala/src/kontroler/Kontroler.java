@@ -117,6 +117,15 @@ public class Kontroler {
 		return null;
 	}
 	
+	/**
+	 * Metoda na osnovu parametra proverava da li sala postoji
+	 * @param sala - naziv sale
+	 * @return 
+	 * 			<ul>
+	 *         <li>true - Postoji sala</li>
+	 *         <li>false - Nepostoji sala</li>
+	 *         </ul>
+	 */
 	public static boolean daLiPostojiSala(String sala){
 		LinkedList<Sala> sale;
 		try {
@@ -131,6 +140,24 @@ public class Kontroler {
 			e.printStackTrace();
 		}
 		return false;
+	}
+	
+	public static String vratiTipSale(String sala){
+		String tipSale = null;
+		String naziv = sala.toUpperCase().trim();
+		LinkedList<Sala> sale;
+		try {
+			sale = testModel.vratiSveSale();
+			for(Sala s : sale){
+				if (s.getNaziv_sale().equals(naziv)) {
+					tipSale = s.getTip_sale();
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return tipSale;
 	}
 	
 
