@@ -1,10 +1,14 @@
-package gui;
+package gui.kontroler;
 
 import java.awt.EventQueue;
 import java.sql.SQLException;
 import java.util.LinkedList;
 
 import domen.Sala;
+import gui.MainWindowGUI;
+import gui.PrikazSaleGUI;
+import gui.RezSalaGUI;
+import gui.ZakazivanjeGUI;
 import kontroler.Kontroler;
 
 public class GUIKontroler {

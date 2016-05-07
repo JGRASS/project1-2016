@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import domen.Sala;
+import gui.kontroler.GUIKontroler;
 import kontroler.Kontroler;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JScrollPane;

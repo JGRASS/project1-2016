@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 
+import gui.kontroler.GUIKontroler;
 import gui.model.TableModelRezSalaGUI;
 import kontroler.Kontroler;
 

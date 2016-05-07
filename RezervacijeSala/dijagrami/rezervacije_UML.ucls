@@ -55,8 +55,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="7" language="java" name="gui.GUIKontroler" project="RezervacijeSala" 
-    file="/RezervacijeSala/src/gui/GUIKontroler.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="7" language="java" name="gui.kontroler.GUIKontroler" project="RezervacijeSala" 
+    file="/RezervacijeSala/src/gui/kontroler/GUIKontroler.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="841" y="380"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
