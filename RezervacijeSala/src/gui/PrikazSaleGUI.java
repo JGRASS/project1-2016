@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 
+import gui.model.TableModelPrikazSaleGUI;
 import kontroler.Kontroler;
 
 import javax.swing.JScrollPane;

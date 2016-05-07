@@ -9,7 +9,7 @@ import domen.Sala;
 import domen.Termin;
 import gui.MainWindowGUI;
 import gui.RezSalaGUI;
-import gui.TableModelRezSalaGUI;
+import gui.model.TableModelRezSalaGUI;
 import model.Model;
 
 public class Kontroler {

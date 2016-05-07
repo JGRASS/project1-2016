@@ -1,30 +1,50 @@
-package gui;
+package gui.model;
+
+import java.util.LinkedList;
 
 import javax.swing.table.AbstractTableModel;
 
+import domen.Termin;
 import kontroler.Kontroler;
 
-public class TableModelRezSalaGUI extends AbstractTableModel {
-	private String tipSale;
+public class TableModelPrikazSaleGUI extends AbstractTableModel {
 
-	public TableModelRezSalaGUI() {
-		this.tipSale = null;
+	private String sala;
+	private LinkedList<Termin> termini = new LinkedList<Termin>();
+
+	public TableModelPrikazSaleGUI(String sala) {
+		if (sala != null) {
+			this.sala = sala;
+			termini = Kontroler.vratiSveTermineZaDatuSalu(sala);
+		}else{
+			System.out.println("greska");
+		}
+		
 	}
 
-	public TableModelRezSalaGUI(String tipSale) {
-		this.tipSale = tipSale;
+	public String getSala() {
+		return sala;
 	}
 
-	public String getTipSale() {
-		return tipSale;
+	public void setSala(String sala) {
+		this.sala = sala;
 	}
 
-	public void setTipSale(String tipSale) {
-		this.tipSale = tipSale;
+	public LinkedList<Termin> getTermini() {
+		return termini;
+	}
+
+	public void setTermini(LinkedList<Termin> termini) {
+		this.termini = termini;
+	}
+
+	public String[] getKolone() {
+		return kolone;
 	}
 
 	private static final long serialVersionUID = 1L;
-	private final String[] kolone = new String[] { "Termin", "Ponedeljak", "Utorak", "Sreda", "Cetvrtak", "Petak", "Subota", "Nedelja" };
+	private final String[] kolone = new String[] { "Termin", "Ponedeljak", "Utorak", "Sreda", "Cetvrtak", "Petak",
+			"Subota", "Nedelja" };
 
 	@Override
 	public int getColumnCount() {
@@ -59,7 +79,7 @@ public class TableModelRezSalaGUI extends AbstractTableModel {
 			if (isCellEditable(row, column)) {
 				return "YES";
 			} else {
-				return "NO";
+				return Kontroler.vratiNazivHostaNaOsnovuTerminaISale(row, column, sala);
 			}
 		}
 	}
@@ -77,14 +97,15 @@ public class TableModelRezSalaGUI extends AbstractTableModel {
 
 	@Override
 	public boolean isCellEditable(int rowIndex, int columnIndex) {
-			if (Kontroler.daLiPostojiNekaSlobodnaSalaUTerminu(
-					Kontroler.vratiSlobodneSale(columnIndex, rowIndex, tipSale))) {
-				return true;
-			} else
+		for (Termin t : termini) {
+			if (t.getVreme() == rowIndex && t.getDatum() == columnIndex) {
 				return false;
+			}
+		}
+		return true;
 	}
-	
-	public void osveziTabelu(){
+
+	public void osveziTabelu() {
 		fireTableDataChanged();
 	}
 
