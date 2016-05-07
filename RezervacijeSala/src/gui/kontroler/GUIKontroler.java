@@ -33,7 +33,9 @@ public class GUIKontroler {
 			}
 		});
 	}
-	
+	/*
+	 * Metode za prikaz formi
+	 */
 	public static void prikaziZakazivanjeGUI(int datum, int vreme, String tipSale) throws SQLException{
 		LinkedList<Sala> sale = Kontroler.vratiSlobodneSale(datum, vreme, tipSale);
 		ZakazivanjeGUI z = ZakazivanjeGUI.vratiObjekat(datum, vreme, tipSale, sale);
@@ -51,6 +53,21 @@ public class GUIKontroler {
 		rezSala.setVisible(true);
 	}
 	
+	/*
+	 * ######################
+	 * Metode za pristup bazi
+	 * ######################
+	 */
+	
+	/**
+	 * Metoda za dodavanje eventa
+	 * @param host
+	 * @param sala
+	 * @param datum
+	 * @param vreme
+	 * @param tipSale
+	 * @throws java.sql.SQLException
+	 */
 	public static void rezervisi(String host, String sala, int datum, int vreme, String tipSale) throws SQLException{
 		Kontroler.dodajEvent(host, sala, datum, vreme, tipSale);
 	}
@@ -60,6 +77,9 @@ public class GUIKontroler {
 		Kontroler.dodajEvent(host, sala, datum, vreme, tipSale);
 	}
 	
+	/*
+	 * Metode za upravljanje salama
+	 */
 	public static boolean daLiPostojiSala(String sala) throws SQLException{
 		return Kontroler.daLiPostojiSala(sala);
 	}
@@ -76,14 +96,24 @@ public class GUIKontroler {
 		return false;
 	}
 	
+	/*
+	 * Metoda za upravljanje terminima
+	 */
 	public static LinkedList<Termin> vratiTermineZaSalu(String sala) throws SQLException{
 		return Kontroler.vratiSveTermineZaDatuSalu(sala);
 	}
 	
+
+	/*
+	 * metoda vraca hosta na osnovu termina i sale
+	 */
 	public static String vratiHosta(int row, int column, String sala) throws SQLException{
 		return Kontroler.vratiNazivHostaNaOsnovuTerminaISale(row, column, sala);
 	}
 	
+	/*
+	 * Pomocne metode
+	 */
 	/**
 	 * Sredjuje string za tip sale
 	 * @param s
