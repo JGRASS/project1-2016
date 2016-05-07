@@ -19,9 +19,7 @@ import sistemskeoperacije.SOVratiTermineZaSalu;
 import sistemskeoperacije.SOVratiTipSale;
 
 public class Kontroler {
-	private LinkedList<Event> dogadjaji = null;
 	private static Model testModel = new Model();
-	private static MainWindowGUI mw;
 
 
 	/**
