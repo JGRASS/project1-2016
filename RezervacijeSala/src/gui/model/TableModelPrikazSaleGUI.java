@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import javax.swing.table.AbstractTableModel;
 
 import domen.Termin;
+import gui.kontroler.GUIKontroler;
 import kontroler.Kontroler;
 
 public class TableModelPrikazSaleGUI extends AbstractTableModel {
@@ -16,14 +17,12 @@ public class TableModelPrikazSaleGUI extends AbstractTableModel {
 	public TableModelPrikazSaleGUI(String sala) {
 		if (sala != null) {
 			this.sala = sala;
-			try {
-				termini = Kontroler.vratiSveTermineZaDatuSalu(sala);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}else{
-			System.out.println("greska");
+				try {
+					termini = GUIKontroler.vratiTermineZaSalu(sala);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 		}
 		
 	}
@@ -86,7 +85,7 @@ public class TableModelPrikazSaleGUI extends AbstractTableModel {
 				return "YES";
 			} else {
 				try {
-					return Kontroler.vratiNazivHostaNaOsnovuTerminaISale(row, column, sala);
+					return GUIKontroler.vratiHosta(row, column, sala);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

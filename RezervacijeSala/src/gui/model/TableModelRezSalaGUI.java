@@ -4,6 +4,7 @@ import java.sql.SQLException;
 
 import javax.swing.table.AbstractTableModel;
 
+import gui.kontroler.GUIKontroler;
 import kontroler.Kontroler;
 
 public class TableModelRezSalaGUI extends AbstractTableModel {
@@ -79,19 +80,18 @@ public class TableModelRezSalaGUI extends AbstractTableModel {
 
 	@Override
 	public boolean isCellEditable(int rowIndex, int columnIndex) {
-			try {
-				if (Kontroler.daLiPostojiNekaSlobodnaSalaUTerminu(
-						Kontroler.vratiSlobodneSale(columnIndex, rowIndex, tipSale))) {
-					return true;
-				} else
-					return false;
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return false;//skloniti try catch u ovoj metodi sa ovim returnom
+		boolean editable = false;
+		try {
+			editable = GUIKontroler.daLiImaSlobodnaSalaZaTermin(rowIndex, columnIndex, tipSale);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if (editable) {
+			return true;
+		} else
+			return false;
 	}
-	
 	
 	
 	public void osveziTabelu(){

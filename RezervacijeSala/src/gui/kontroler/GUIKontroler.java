@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 
 import domen.Sala;
+import domen.Termin;
 import gui.MainWindowGUI;
 import gui.PrikazSaleGUI;
 import gui.RezSalaGUI;
@@ -65,6 +66,22 @@ public class GUIKontroler {
 	
 	public static String vratiTipSale(String sala) throws SQLException{
 		return Kontroler.vratiTipSale(sala);
+	}
+	
+	public static boolean daLiImaSlobodnaSalaZaTermin(int datum, int vreme, String tipSale) throws SQLException{
+		if (Kontroler.daLiPostojiNekaSlobodnaSalaUTerminu(
+				Kontroler.vratiSlobodneSale(datum, vreme, tipSale))) {
+			return true;
+		}
+		return false;
+	}
+	
+	public static LinkedList<Termin> vratiTermineZaSalu(String sala) throws SQLException{
+		return Kontroler.vratiSveTermineZaDatuSalu(sala);
+	}
+	
+	public static String vratiHosta(int row, int column, String sala) throws SQLException{
+		return Kontroler.vratiNazivHostaNaOsnovuTerminaISale(row, column, sala);
 	}
 	
 	/**
