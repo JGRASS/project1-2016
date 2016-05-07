@@ -265,8 +265,10 @@ public class ZakazivanjeGUI extends JDialog {
 					try {
 						GUIKontroler.rezervisi(host, sala, datum, vreme, tipSale);
 					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+						JOptionPane.showMessageDialog(null,
+								"Doslo je do greske pri upisivanju u bazu.\nSala nije rezervisana", "Greska",
+								JOptionPane.ERROR_MESSAGE);
+						return;
 					}
 
 					dispose();

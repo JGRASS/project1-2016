@@ -17,6 +17,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
@@ -158,16 +159,20 @@ public class RezSalaGUI extends JFrame {
 						public void mouseClicked(MouseEvent e) {
 							int red = table.getSelectedRow();
 							int kolona = table.getSelectedColumn();
-							if (table.getModel().getValueAt(red, kolona)== "NO") {
+							if (table.getModel().getValueAt(red, kolona) == "NO") {
 								return;
 							}
 
-							if (kolona != 0) {								
+							if (kolona != 0) {
 								try {
 									GUIKontroler.prikaziZakazivanjeGUI(kolona, red, tipSale);
 								} catch (SQLException e1) {
-									// TODO Auto-generated catch block
-									e1.printStackTrace();
+									JOptionPane.showMessageDialog(null,
+											"Doslo je do greske pri citanju iz baze.\nProbajte malo kasnije", "Greska",
+											JOptionPane.ERROR_MESSAGE);
+								} catch (Exception e1) {
+									JOptionPane.showMessageDialog(null, "Doslo je do greske:\n." + e1.getMessage(),
+											"Greska", JOptionPane.ERROR_MESSAGE);
 								}
 							}
 						}

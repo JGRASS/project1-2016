@@ -16,21 +16,6 @@ import domen.Termin;
 public class Model {
 	private static DBConnector konektor = new DBConnector();
 
-	/*
-	 * public LinkedList<Event> prikupiEventoveZaDatiTipSale(String tipSale)
-	 * throws SQLException { LinkedList<Event> dogadjaji = new
-	 * LinkedList<Event>(); Connection conn = konektor.connect(); String upit =
-	 * null; upit =
-	 * "select naziv_sale, event_host, vreme, datum, event.sala_id, event.termin_id, tip_sale from event inner join sala on event.sala_id = sala.sala_id inner join termin on event.termin_id = termin.termin_id where tip_sale = "
-	 * + "'" + tipSale + "'"; PreparedStatement ps = (PreparedStatement)
-	 * conn.prepareStatement(upit); ResultSet rs = ps.executeQuery(); while
-	 * (rs.next()) { String naziv = rs.getString(1); String host =
-	 * rs.getString(2); int vreme = rs.getInt(3); int datum = rs.getInt(4); int
-	 * sala_id = rs.getInt(5); int termin_id = rs.getInt(6); String tip_sale =
-	 * rs.getString(7); Event e = new Event(host, new Sala(sala_id, naziv,
-	 * tip_sale), new Termin(termin_id, vreme, datum)); dogadjaji.add(e); }
-	 * rs.close(); ps.close(); conn.close(); return dogadjaji; }
-	 */
 	/**
 	 * Metoda vraca evente (sale sa svojim zakazanim terminima) iz baze podataka
 	 * koji odgovaraju datom terminu i tipu sale.

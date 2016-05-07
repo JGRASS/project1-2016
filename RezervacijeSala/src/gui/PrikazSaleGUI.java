@@ -128,8 +128,14 @@ public class PrikazSaleGUI extends JFrame {
 					try {
 						postoji = GUIKontroler.daLiPostojiSala(sala);
 					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+						JOptionPane.showMessageDialog(null,
+								"Doslo je do greske pri citanju iz baze.\nProbajte malo kasnije", "Greska",
+								JOptionPane.ERROR_MESSAGE);
+						return;
+					} catch (Exception e1) {
+						JOptionPane.showMessageDialog(null, "Doslo je do greske:\n." + e1.getMessage(), "Greska",
+								JOptionPane.ERROR_MESSAGE);
+						return;
 					}
 					if (sala == null || sala.isEmpty()) {
 						JOptionPane.showMessageDialog(null, "Morate uneti salu", "Greska", JOptionPane.WARNING_MESSAGE);
@@ -228,8 +234,9 @@ public class PrikazSaleGUI extends JFrame {
 					try {
 						GUIKontroler.rezervisi(host, sala, datum, vreme);
 					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+						JOptionPane.showMessageDialog(null,
+								"Doslo je do greske pri upisivanju u bazu.\nSala nije rezervisana", "Greska",
+								JOptionPane.ERROR_MESSAGE);
 					}
 					table.setModel(new TableModelPrikazSaleGUI(sala));
 					table.repaint();
