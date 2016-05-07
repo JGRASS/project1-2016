@@ -11,6 +11,12 @@ import gui.MainWindowGUI;
 import gui.RezSalaGUI;
 import gui.model.TableModelRezSalaGUI;
 import model.Model;
+import sistemskeoperacije.SODaLiPostojiSala;
+import sistemskeoperacije.SODodajEvent;
+import sistemskeoperacije.SOVratiHosta;
+import sistemskeoperacije.SOVratiSlobodneSale;
+import sistemskeoperacije.SOVratiTermineZaSalu;
+import sistemskeoperacije.SOVratiTipSale;
 
 public class Kontroler {
 	private LinkedList<Event> dogadjaji = null;
@@ -26,20 +32,10 @@ public class Kontroler {
 	 * @param vreme
 	 * @param tipSale
 	 * @return lista objekta slobodnih sala
+	 * @throws SQLException 
 	 */
-	public static LinkedList<Sala> vratiSlobodneSale(int datum, int vreme, String tipSale) {
-		LinkedList<Sala> sale;
-		LinkedList<Event> eventi;
-		LinkedList<Sala> slobodne = new LinkedList<>();
-		try {
-			sale = testModel.sveSaleDatogTipa(tipSale);
-			eventi = testModel.prikupiEventoveZaDatiTerminITipSale(datum, vreme, tipSale);
-			slobodne = testModel.vratiSlobodneSaleUTerminu(sale, eventi);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return slobodne;
+	public static LinkedList<Sala> vratiSlobodneSale(int datum, int vreme, String tipSale) throws SQLException {
+		return SOVratiSlobodneSale.izvrsi(testModel, datum, vreme, tipSale);
 	}
 
 	/**
@@ -55,31 +51,10 @@ public class Kontroler {
 	 *            - Vreme u toku dana za zakazivanja
 	 * @param tipSale
 	 *            - Tip sale koji se zakazuje
+	 * @throws SQLException 
 	 */
-	public static void dodajEvent(String host, String sala, int datum, int vreme, String tipSale) {
-		try {
-			int sala_id = 6;
-			int termin_id = 5;
-			LinkedList<Sala> sveSale = testModel.sveSaleDatogTipa(tipSale);
-			for (Sala salica : sveSale) {
-				if (salica.getNaziv_sale().equals(sala)) {
-					sala_id = salica.getSala_id();
-					break;
-				}
-			}
-			LinkedList<Termin> sviTermini = testModel.sviTermini();
-			for (Termin t : sviTermini) {
-				if (t.getDatum() == datum && t.getVreme() == vreme) {
-					termin_id = t.getTermin_id();
-					break;
-				}
-			}
-			testModel.unesiEvent(host, termin_id, sala_id);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+	public static void dodajEvent(String host, String sala, int datum, int vreme, String tipSale) throws SQLException {
+		SODodajEvent.izvrsi(testModel, host, sala, datum, vreme, tipSale);
 	}
 
 	/**
@@ -97,24 +72,12 @@ public class Kontroler {
 		return !slobodneSale.isEmpty();
 	}
 
-	public static LinkedList<Termin> vratiSveTermineZaDatuSalu(String naziv_sale) {
-		try {
-			return testModel.pronadjiSveTermineZaDatuSalu(naziv_sale);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
+	public static LinkedList<Termin> vratiSveTermineZaDatuSalu(String naziv_sale) throws SQLException {
+		return SOVratiTermineZaSalu.izvrsi(testModel, naziv_sale);
 	}
 
-	public static String vratiNazivHostaNaOsnovuTerminaISale(int row, int column, String sala) {
-		try {
-			return testModel.vratiNazivHosta(row, column, sala);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
+	public static String vratiNazivHostaNaOsnovuTerminaISale(int row, int column, String sala) throws SQLException {
+		return SOVratiHosta.izvrsi(testModel, row, column, sala);
 	}
 	
 	/**
@@ -125,39 +88,14 @@ public class Kontroler {
 	 *         <li>true - Postoji sala</li>
 	 *         <li>false - Nepostoji sala</li>
 	 *         </ul>
+	 * @throws SQLException 
 	 */
-	public static boolean daLiPostojiSala(String sala){
-		LinkedList<Sala> sale;
-		try {
-			sale = testModel.vratiSveSale();
-			for(Sala s : sale){
-				if (s.getNaziv_sale().equals(sala.toUpperCase())) {
-					return true;
-				}
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return false;
+	public static boolean daLiPostojiSala(String sala) throws SQLException{
+		return SODaLiPostojiSala.izvrsi(testModel, sala);
 	}
 	
-	public static String vratiTipSale(String sala){
-		String tipSale = null;
-		String naziv = sala.toUpperCase().trim();
-		LinkedList<Sala> sale;
-		try {
-			sale = testModel.vratiSveSale();
-			for(Sala s : sale){
-				if (s.getNaziv_sale().equals(naziv)) {
-					tipSale = s.getTip_sale();
-				}
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return tipSale;
+	public static String vratiTipSale(String sala) throws SQLException{
+		return SOVratiTipSale.izvrsi(testModel, sala);
 	}
 	
 

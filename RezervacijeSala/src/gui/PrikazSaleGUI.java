@@ -21,6 +21,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
 public class PrikazSaleGUI extends JFrame {
@@ -123,10 +124,17 @@ public class PrikazSaleGUI extends JFrame {
 			btnPrikazi.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					String sala = txtNazivSale.getText().toUpperCase().trim();
+					boolean postoji = true;
+					try {
+						postoji = GUIKontroler.daLiPostojiSala(sala);
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					if (sala == null || sala.isEmpty()) {
 						JOptionPane.showMessageDialog(null, "Morate uneti salu", "Greska", JOptionPane.WARNING_MESSAGE);
 						return;
-					} else if (!Kontroler.daLiPostojiSala(sala)) {
+					} else if (!postoji) {
 						JOptionPane.showMessageDialog(null, "Sala koju ste uneli ne postoji", "Greska", JOptionPane.WARNING_MESSAGE);
 						return;
 					}
@@ -203,6 +211,7 @@ public class PrikazSaleGUI extends JFrame {
 		}
 		return btnPrikazi;
 	}
+
 	private JButton getBtnRezervisi() {
 		if (btnRezervisi == null) {
 			btnRezervisi = new JButton("Rezervisi");
@@ -213,12 +222,18 @@ public class PrikazSaleGUI extends JFrame {
 					String sala = txtNazivSale.getText().toUpperCase().trim();
 					String host = txtHost.getText().trim();
 					if (host == null || host.isEmpty()) {
-						JOptionPane.showMessageDialog(null, "Morate uneti hosta.", "Greska", JOptionPane.WARNING_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Morate uneti hosta.", "Greska",
+								JOptionPane.WARNING_MESSAGE);
 					}
-					String tipSale = Kontroler.vratiTipSale(sala);
-					Kontroler.dodajEvent(host, sala, datum, vreme, tipSale);
+					try {
+						GUIKontroler.rezervisi(host, sala, datum, vreme);
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					table.setModel(new TableModelPrikazSaleGUI(sala));
 					table.repaint();
+
 				}
 			});
 			btnRezervisi.setBounds(683, 7, 89, 23);

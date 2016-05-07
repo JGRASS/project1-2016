@@ -1,5 +1,6 @@
 package gui.model;
 
+import java.sql.SQLException;
 import java.util.LinkedList;
 
 import javax.swing.table.AbstractTableModel;
@@ -15,7 +16,12 @@ public class TableModelPrikazSaleGUI extends AbstractTableModel {
 	public TableModelPrikazSaleGUI(String sala) {
 		if (sala != null) {
 			this.sala = sala;
-			termini = Kontroler.vratiSveTermineZaDatuSalu(sala);
+			try {
+				termini = Kontroler.vratiSveTermineZaDatuSalu(sala);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}else{
 			System.out.println("greska");
 		}
@@ -79,9 +85,15 @@ public class TableModelPrikazSaleGUI extends AbstractTableModel {
 			if (isCellEditable(row, column)) {
 				return "YES";
 			} else {
-				return Kontroler.vratiNazivHostaNaOsnovuTerminaISale(row, column, sala);
+				try {
+					return Kontroler.vratiNazivHostaNaOsnovuTerminaISale(row, column, sala);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
+		return "Greska";//Nepotrebno ako se ukloni try catch
 	}
 
 	@Override

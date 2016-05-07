@@ -1,5 +1,7 @@
 package gui.model;
 
+import java.sql.SQLException;
+
 import javax.swing.table.AbstractTableModel;
 
 import kontroler.Kontroler;
@@ -77,12 +79,20 @@ public class TableModelRezSalaGUI extends AbstractTableModel {
 
 	@Override
 	public boolean isCellEditable(int rowIndex, int columnIndex) {
-			if (Kontroler.daLiPostojiNekaSlobodnaSalaUTerminu(
-					Kontroler.vratiSlobodneSale(columnIndex, rowIndex, tipSale))) {
-				return true;
-			} else
-				return false;
+			try {
+				if (Kontroler.daLiPostojiNekaSlobodnaSalaUTerminu(
+						Kontroler.vratiSlobodneSale(columnIndex, rowIndex, tipSale))) {
+					return true;
+				} else
+					return false;
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return false;//skloniti try catch u ovoj metodi sa ovim returnom
 	}
+	
+	
 	
 	public void osveziTabelu(){
 		fireTableDataChanged();

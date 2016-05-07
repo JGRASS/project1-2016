@@ -22,6 +22,7 @@ import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 
@@ -161,12 +162,13 @@ public class RezSalaGUI extends JFrame {
 								return;
 							}
 
-							if (kolona != 0) {
-								/*RezervacijaGUI rg = new RezervacijaGUI(kolona, red, tipSale);
-								rg.setVisible(true);*/
-								ZakazivanjeGUI zk = ZakazivanjeGUI.vratiObjekat(kolona, red, tipSale);
-								zk.setLocationRelativeTo(null);
-								zk.setVisible(true);
+							if (kolona != 0) {								
+								try {
+									GUIKontroler.prikaziZakazivanjeGUI(kolona, red, tipSale);
+								} catch (SQLException e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
 							}
 						}
 					});

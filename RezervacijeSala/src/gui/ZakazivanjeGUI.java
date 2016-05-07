@@ -19,6 +19,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import java.awt.Dimension;
 
@@ -36,9 +37,9 @@ public class ZakazivanjeGUI extends JDialog {
 	private JLabel lblIzabranDan;
 	private JLabel lblIzabranTermin;
 
+	private String tipSale;
 	private int datum;
 	private int vreme;
-	private String tipSale;
 	private LinkedList<Sala> sale;
 	
 	//Singleton
@@ -63,14 +64,14 @@ public class ZakazivanjeGUI extends JDialog {
 	 * @param tipSale
 	 * @return
 	 */
-	public static ZakazivanjeGUI vratiObjekat(int datum, int vreme, String tipSale){
+	public static ZakazivanjeGUI vratiObjekat(int datum, int vreme, String tipSale, LinkedList<Sala> sale){
 		if (objekat == null) {
-			objekat = new ZakazivanjeGUI(datum, vreme, tipSale);
+			objekat = new ZakazivanjeGUI(datum, vreme, tipSale, sale);
 		} else {
 			//Unisti prozor kako znas i umes :D
 			objekat.dispose();
 			objekat = null;
-			objekat = new ZakazivanjeGUI(datum, vreme, tipSale);
+			objekat = new ZakazivanjeGUI(datum, vreme, tipSale, sale);
 		} 
 		return objekat;
 	}
@@ -98,7 +99,7 @@ public class ZakazivanjeGUI extends JDialog {
 	 * @param vreme
 	 * @param tipSale
 	 */
-	private ZakazivanjeGUI(int datum, int vreme, String tipSale) {
+	private ZakazivanjeGUI(int datum, int vreme, String tipSale, LinkedList<Sala> sale) {
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setTitle("Rezervacija");
 		setBounds(100, 100, 292, 269);
@@ -109,12 +110,12 @@ public class ZakazivanjeGUI extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.datum = datum;
 		this.vreme = vreme;
+		this.sale = sale; //Kontroler.vratiSlobodneSale(datum, vreme, tipSale);
 		this.tipSale = tipSale;
-		sale = Kontroler.vratiSlobodneSale(datum, vreme, tipSale);
 		napuniListu();
 		lblIzabranTermin.setText(pretvoriTerminUString(vreme));
 		lblIzabranDan.setText(pretvoriDanUString(datum));
-		lblIzabranTipSale.setText(pretvoriTipSaleUString(tipSale));
+		lblIzabranTipSale.setText(GUIKontroler.pretvoriTipSaleUString(tipSale));
 		setResizable(false);
 		
 	}
@@ -241,23 +242,33 @@ public class ZakazivanjeGUI extends JDialog {
 		}
 		return txtHost;
 	}
+
 	private JButton getBtnRezervisi() {
 		if (btnRezervisi == null) {
 			btnRezervisi = new JButton("Rezervisi");
 			btnRezervisi.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					
-					if (jlstSale.getSelectedValue()==null) {
-						JOptionPane.showMessageDialog(null, "Morate izabrati salu","Greska",JOptionPane.WARNING_MESSAGE);
+
+					if (jlstSale.getSelectedValue() == null) {
+						JOptionPane.showMessageDialog(null, "Morate izabrati salu", "Greska",
+								JOptionPane.WARNING_MESSAGE);
 						return;
 					}
 					String sala = jlstSale.getSelectedValue().toString().trim();
 
 					if (txtHost.getText().isEmpty()) {
-						JOptionPane.showMessageDialog(null, "Morate uneti hosta","Greska",JOptionPane.WARNING_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Morate uneti hosta", "Greska",
+								JOptionPane.WARNING_MESSAGE);
 					}
 					String host = txtHost.getText();
-					Kontroler.dodajEvent(host, sala, datum, vreme, tipSale);
+
+					try {
+						GUIKontroler.rezervisi(host, sala, datum, vreme, tipSale);
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+
 					dispose();
 				}
 			});
@@ -315,17 +326,6 @@ public class ZakazivanjeGUI extends JDialog {
 		}
 		return lblIzabranTipSale;
 	}
-	/**
-	 * Sredjuje string za tip sale
-	 * @param s
-	 * @return
-	 */
-	private String pretvoriTipSaleUString(String s){
-		switch(s){
-		case "rc": return "RC";
-		case "amfiteatar": return "Amfiteatar";
-		case "ucionica": return "Ucionica";
-		default: return s;
-		}
-	}
+	
+	
 }
