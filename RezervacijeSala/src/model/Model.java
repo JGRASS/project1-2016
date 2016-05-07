@@ -204,6 +204,9 @@ public class Model {
 		while (rs.next()) {
 			host = rs.getString(1);
 		}
+		rs.close();
+		ps.close();
+		conn.close();
 		return host;
 	}
 	
