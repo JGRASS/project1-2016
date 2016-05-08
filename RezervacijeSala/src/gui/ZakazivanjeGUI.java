@@ -37,52 +37,23 @@ public class ZakazivanjeGUI extends JDialog {
 	private JButton btnOtkazi;
 	private JLabel lblIzabranDan;
 	private JLabel lblIzabranTermin;
-
+	private JScrollPane scrollPane;
+	private JLabel lblTipSale;
+	private JLabel lblIzabranTipSale;
+	//parametri
 	private String tipSale;
 	private int datum;
 	private int vreme;
 	
-	
-	//Singleton
-	private static ZakazivanjeGUI objekat;
-	private JScrollPane scrollPane;
-	private JLabel lblTipSale;
-	private JLabel lblIzabranTipSale;
-	
-	public static ZakazivanjeGUI vratiObjekat(){
-		if (objekat == null) {
-			objekat = new ZakazivanjeGUI();
-		}
-		return objekat;
-	}
+
 	
 	
-	/**
-	 * Singleton metoda koja vraca objekat klase u kojoj 
-	 * se nalazi i obezbedjuje da postoji maksimalno jedan objekat te klase.
-	 * @param datum
-	 * @param vreme
-	 * @param tipSale
-	 * @return
-	 * @throws java.sql.SQLException 
-	 */
-	public static ZakazivanjeGUI vratiObjekat(int datum, int vreme, String tipSale) throws java.sql.SQLException{
-		if (objekat == null) {
-			objekat = new ZakazivanjeGUI(datum, vreme, tipSale);
-		} else {
-			//Unisti prozor kako znas i umes :D
-			objekat.dispose();
-			objekat = null;
-			objekat = new ZakazivanjeGUI(datum, vreme, tipSale);
-		} 
-		return objekat;
-	}
 	
 	
 	/**
 	 * Create the dialog.
 	 */
-	private ZakazivanjeGUI() {
+	public ZakazivanjeGUI() {
 		setResizable(false);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setTitle("Rezervacija");
@@ -91,8 +62,7 @@ public class ZakazivanjeGUI extends JDialog {
 		getContentPane().add(getPanel(), BorderLayout.EAST);
 		getContentPane().add(getScrollPane_1(), BorderLayout.CENTER);
 		contentPanel.setLayout(new FlowLayout());
-		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		
+		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));		
 	}
 	
 	/**
@@ -113,7 +83,6 @@ public class ZakazivanjeGUI extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.datum = datum;
 		this.vreme = vreme;
-		//this.sale = sale; //Kontroler.vratiSlobodneSale(datum, vreme, tipSale);
 		this.tipSale = tipSale;
 		napuniListu();
 		lblIzabranTermin.setText(pretvoriTerminUString(vreme));

@@ -106,9 +106,6 @@ public class GUIKontroler {
 		return false;
 	}
 	
-	/*public static LinkedList<Sala> vratiSlobodneSale(int datum, int vreme, String tipSale) throws SQLException{
-		return Kontroler.vratiSlobodneSale(datum, vreme, tipSale);
-	}*/
 	
 	public static DefaultListModel<String> vratiListModel(int datum, int vreme, String tipSale) throws SQLException{
 		DefaultListModel<String> dlm = new DefaultListModel<>();
