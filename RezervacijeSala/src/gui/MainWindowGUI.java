@@ -3,6 +3,9 @@ package gui;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import gui.kontroler.GUIKontroler;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -31,18 +34,6 @@ public class MainWindowGUI extends JFrame {
 		contentPane.add(getBtnRezervisiSalu());
 		contentPane.add(getBtnProveriSalu());
 		setResizable(false);
-		/*
-		try {
-			URL url = new URL("http://www.fon.bg.ac.rs/wp-content/themes/fon/img/fon-logo=cir=.png");
-			logo = new ImageIcon(url);
-			lblLogo = new JLabel(logo);
-			lblLogo.setBounds(0, 0, 409, 261);
-			contentPane.add(lblLogo);
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		*/
 		logo = new ImageIcon("resource/img/foncic.png");
 		lblLogo = new JLabel(logo);
 		lblLogo.setBounds(0, 0, 409, 261);
@@ -53,8 +44,7 @@ public class MainWindowGUI extends JFrame {
 			btnRezervisiSalu = new JButton("Rezervisi salu");
 			btnRezervisiSalu.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					RezSalaGUI rez = new RezSalaGUI();
-					rez.setVisible(true);
+					GUIKontroler.prikaziRezSalaGUI();
 				}
 			});
 			btnRezervisiSalu.setBounds(63, 218, 123, 32);
@@ -67,8 +57,7 @@ public class MainWindowGUI extends JFrame {
 			btnProveriSalu = new JButton("Proveri salu");
 			btnProveriSalu.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					PrikazSaleGUI prikaz = new PrikazSaleGUI();
-					prikaz.setVisible(true);
+					GUIKontroler.prikaziPrikazSaleGUI();
 				}
 			});
 			btnProveriSalu.setBounds(212, 218, 123, 32);

@@ -44,12 +44,16 @@ public class GUIKontroler {
 	}
 	
 	public static void prikaziPrikazSaleGUI() {
-		prikazSale = new PrikazSaleGUI();
+		if (prikazSale == null) {
+			prikazSale = new PrikazSaleGUI();
+		}		
 		prikazSale.setVisible(true);
 	}
 	
 	public static void prikaziRezSalaGUI(){
-		rezSala = new RezSalaGUI();
+		if (rezSala == null) {
+			rezSala = new RezSalaGUI();
+		}		
 		rezSala.setVisible(true);
 	}
 	
