@@ -102,7 +102,7 @@ public class RezSalaGUI extends JFrame {
 	 * otvara novi JDialog sa ponudjenim salama i mogucnoscu da se odabere sala i rezervise.
 	 * @return combo box
 	 */
-	private JComboBox getComboBox() {
+	/*private JComboBox getComboBox() {
 		if (comboBox == null) {
 			comboBox = new JComboBox();
 			comboBox.setModel(new DefaultComboBoxModel(new String[] { "Amfiteatar", "RC", "Ucionica" }));
@@ -110,6 +110,9 @@ public class RezSalaGUI extends JFrame {
 				public void actionPerformed(ActionEvent arg0) {
 					String tipSale = comboBox.getSelectedItem().toString().toLowerCase().trim();
 					if (table != null) {
+						//table = new JTable();
+						//contentPane.remove(table);
+						//table = new JTable();
 						table.setModel(new TableModelRezSalaGUI(tipSale));
 						table.repaint();
 						 //return;
@@ -136,6 +139,24 @@ public class RezSalaGUI extends JFrame {
 						@Override
 						public void mouseReleased(MouseEvent e) {
 							// TODO Auto-generated method stub
+							int red = table.getSelectedRow();
+							int kolona = table.getSelectedColumn();
+							if (table.getModel().getValueAt(red, kolona) == "NO") {
+								return;
+							}
+
+							if (kolona != 0) {
+								try {
+									GUIKontroler.prikaziZakazivanjeGUI(kolona, red, tipSale);
+								} catch (SQLException e1) {
+									JOptionPane.showMessageDialog(null,
+											"Doslo je do greske pri citanju iz baze.\nProbajte malo kasnije", "Greska",
+											JOptionPane.ERROR_MESSAGE);
+								} catch (Exception e1) {
+									JOptionPane.showMessageDialog(null, "Doslo je do greske:\n." + e1.getMessage(),
+											"Greska", JOptionPane.ERROR_MESSAGE);
+								}
+							}
 
 						}
 
@@ -154,6 +175,45 @@ public class RezSalaGUI extends JFrame {
 						public void mouseEntered(MouseEvent e) {
 							// TODO Auto-generated method stub
 
+						}
+
+						@Override
+						public void mouseClicked(MouseEvent e) {
+							
+						}
+					});
+					
+				}
+			});
+		}
+		return comboBox;
+	}*/
+	
+	private JComboBox getComboBox() {
+		if (comboBox == null) {
+			comboBox = new JComboBox();
+			comboBox.setModel(new DefaultComboBoxModel(new String[] { "Amfiteatar", "RC", "Ucionica" }));
+			comboBox.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					String tipSale = comboBox.getSelectedItem().toString().toLowerCase().trim();
+					if (table != null) {
+						contentPane.remove(scrollPane);
+					}
+					kreirajTabelu(tipSale);
+
+					table.addMouseListener(new MouseListener() {
+
+						@Override
+						public void mouseReleased(MouseEvent e) {
+						}
+						@Override
+						public void mousePressed(MouseEvent e) {
+						}
+						@Override
+						public void mouseExited(MouseEvent e) {
+						}
+						@Override
+						public void mouseEntered(MouseEvent e) {
 						}
 
 						@Override
@@ -178,12 +238,13 @@ public class RezSalaGUI extends JFrame {
 							}
 						}
 					});
-					
+
 				}
 			});
 		}
 		return comboBox;
 	}
+	
 	private JPanel getPanel_1() {
 		if (panel_1 == null) {
 			panel_1 = new JPanel();
@@ -207,5 +268,22 @@ public class RezSalaGUI extends JFrame {
 			lblNoU.setBounds(10, 25, 326, 14);
 		}
 		return lblNoU;
+	}
+	
+	private void kreirajTabelu(String tipSale){
+		table = new JTable();
+		table.setRowHeight(50);
+		TableModelRezSalaGUI model = new TableModelRezSalaGUI(tipSale);
+		table.setModel(model);
+		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+		centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+		table.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+		table.setCellSelectionEnabled(true);
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		scrollPane = new JScrollPane();
+		scrollPane.setViewportView(table);
+		contentPane.add(scrollPane, BorderLayout.CENTER);
+		contentPane.revalidate();
+		contentPane.repaint();
 	}
 }

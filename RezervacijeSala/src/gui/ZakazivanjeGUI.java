@@ -41,7 +41,7 @@ public class ZakazivanjeGUI extends JDialog {
 	private String tipSale;
 	private int datum;
 	private int vreme;
-	private LinkedList<Sala> sale;
+	
 	
 	//Singleton
 	private static ZakazivanjeGUI objekat;
@@ -64,15 +64,16 @@ public class ZakazivanjeGUI extends JDialog {
 	 * @param vreme
 	 * @param tipSale
 	 * @return
+	 * @throws java.sql.SQLException 
 	 */
-	public static ZakazivanjeGUI vratiObjekat(int datum, int vreme, String tipSale, LinkedList<Sala> sale){
+	public static ZakazivanjeGUI vratiObjekat(int datum, int vreme, String tipSale) throws java.sql.SQLException{
 		if (objekat == null) {
-			objekat = new ZakazivanjeGUI(datum, vreme, tipSale, sale);
+			objekat = new ZakazivanjeGUI(datum, vreme, tipSale);
 		} else {
 			//Unisti prozor kako znas i umes :D
 			objekat.dispose();
 			objekat = null;
-			objekat = new ZakazivanjeGUI(datum, vreme, tipSale, sale);
+			objekat = new ZakazivanjeGUI(datum, vreme, tipSale);
 		} 
 		return objekat;
 	}
@@ -99,8 +100,9 @@ public class ZakazivanjeGUI extends JDialog {
 	 * @param datum
 	 * @param vreme
 	 * @param tipSale
+	 * @throws SQLException 
 	 */
-	private ZakazivanjeGUI(int datum, int vreme, String tipSale, LinkedList<Sala> sale) {
+	public ZakazivanjeGUI(int datum, int vreme, String tipSale) throws SQLException {
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setTitle("Rezervacija");
 		setBounds(100, 100, 292, 269);
@@ -111,7 +113,7 @@ public class ZakazivanjeGUI extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.datum = datum;
 		this.vreme = vreme;
-		this.sale = sale; //Kontroler.vratiSlobodneSale(datum, vreme, tipSale);
+		//this.sale = sale; //Kontroler.vratiSlobodneSale(datum, vreme, tipSale);
 		this.tipSale = tipSale;
 		napuniListu();
 		lblIzabranTermin.setText(pretvoriTerminUString(vreme));
@@ -124,14 +126,12 @@ public class ZakazivanjeGUI extends JDialog {
 	/**
 	 * Metoda koja puni JList sa odgovarajucim
 	 * slobodnim salama koje mogu da se rezervisu.
+	 * @throws SQLException 
 	 */
-	private void napuniListu(){
-		DefaultListModel<String> dlm = new DefaultListModel<>();
-		for(Sala sala : sale){
-			dlm.addElement(sala.getNaziv_sale());
-		}
+	private void napuniListu() throws SQLException{
+		DefaultListModel<String> dlm = GUIKontroler.vratiListModel(datum, vreme, tipSale);//vraca listu slobodnih sala
 		jlstSale.setModel(dlm);
-		if (!sale.isEmpty()) {
+		if (dlm.getSize() != 0) {
 			jlstSale.setSelectedIndex(0);
 		} 
 		

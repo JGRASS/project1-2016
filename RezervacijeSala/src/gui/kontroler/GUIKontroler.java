@@ -4,6 +4,8 @@ import java.awt.EventQueue;
 import java.sql.SQLException;
 import java.util.LinkedList;
 
+import javax.swing.DefaultListModel;
+
 import domen.Sala;
 import domen.Termin;
 import gui.MainWindowGUI;
@@ -17,6 +19,7 @@ public class GUIKontroler {
 	private static MainWindowGUI mainFrame;
 	private static PrikazSaleGUI prikazSale;
 	private static RezSalaGUI rezSala;
+	private static ZakazivanjeGUI zakazivanje;
 	
 	/**
 	 * Launch the application.
@@ -36,11 +39,14 @@ public class GUIKontroler {
 	/*
 	 * Metode za prikaz formi
 	 */
-	public static void prikaziZakazivanjeGUI(int datum, int vreme, String tipSale) throws SQLException{
-		LinkedList<Sala> sale = Kontroler.vratiSlobodneSale(datum, vreme, tipSale);
-		ZakazivanjeGUI z = ZakazivanjeGUI.vratiObjekat(datum, vreme, tipSale, sale);
-		//z.setModal(true);
-		z.setVisible(true);
+	public static void prikaziZakazivanjeGUI(int datum, int vreme, String tipSale) throws SQLException {
+		if (zakazivanje != null) {
+			zakazivanje.dispose();
+			zakazivanje = null;
+		}
+		zakazivanje = new ZakazivanjeGUI(datum, vreme, tipSale);
+		zakazivanje.setModal(true);
+		zakazivanje.setVisible(true);
 	}
 	
 	public static void prikaziPrikazSaleGUI() {
@@ -77,7 +83,7 @@ public class GUIKontroler {
 	}
 	
 	public static void rezervisi(String host, String sala, int datum, int vreme) throws SQLException{
-		String tipSale = Kontroler.vratiTipSale(sala);
+		String tipSale = Kontroler.vratiTipSale(sala);//Tip sale mozemo dobiti na osnovu naziva sale.
 		Kontroler.dodajEvent(host, sala, datum, vreme, tipSale);
 	}
 	
@@ -98,6 +104,19 @@ public class GUIKontroler {
 			return true;
 		}
 		return false;
+	}
+	
+	/*public static LinkedList<Sala> vratiSlobodneSale(int datum, int vreme, String tipSale) throws SQLException{
+		return Kontroler.vratiSlobodneSale(datum, vreme, tipSale);
+	}*/
+	
+	public static DefaultListModel<String> vratiListModel(int datum, int vreme, String tipSale) throws SQLException{
+		DefaultListModel<String> dlm = new DefaultListModel<>();
+		LinkedList<Sala> sale = Kontroler.vratiSlobodneSale(datum, vreme, tipSale);
+		for(Sala sala : sale){
+			dlm.addElement(sala.getNaziv_sale());
+		}
+		return dlm;
 	}
 	
 	/*

@@ -82,7 +82,7 @@ public class TableModelRezSalaGUI extends AbstractTableModel {
 	public boolean isCellEditable(int rowIndex, int columnIndex) {
 		boolean editable = false;
 		try {
-			editable = GUIKontroler.daLiImaSlobodnaSalaZaTermin(rowIndex, columnIndex, tipSale);
+			editable = GUIKontroler.daLiImaSlobodnaSalaZaTermin(columnIndex, rowIndex, tipSale);//(rowIndex, columnIndex, tipSale);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
