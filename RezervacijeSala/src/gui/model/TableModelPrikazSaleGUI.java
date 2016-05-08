@@ -3,6 +3,7 @@ package gui.model;
 import java.sql.SQLException;
 import java.util.LinkedList;
 
+import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
 import domen.Termin;
@@ -20,8 +21,7 @@ public class TableModelPrikazSaleGUI extends AbstractTableModel {
 				try {
 					termini = GUIKontroler.vratiTermineZaSalu(sala);
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Greska pri citanju iz baze.", "Greska", JOptionPane.ERROR_MESSAGE);
 				}
 		}
 		
@@ -87,8 +87,7 @@ public class TableModelPrikazSaleGUI extends AbstractTableModel {
 				try {
 					return GUIKontroler.vratiHosta(row, column, sala);
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Greska pri citanju iz baze.", "Greska", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		}

@@ -2,6 +2,7 @@ package gui.model;
 
 import java.sql.SQLException;
 
+import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
 import gui.kontroler.GUIKontroler;
@@ -84,8 +85,8 @@ public class TableModelRezSalaGUI extends AbstractTableModel {
 		try {
 			editable = GUIKontroler.daLiImaSlobodnaSalaZaTermin(columnIndex, rowIndex, tipSale);//(rowIndex, columnIndex, tipSale);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Greska pri citanju iz baze.", "Greska", JOptionPane.ERROR_MESSAGE);
+			return false;
 		}
 		if (editable) {
 			return true;
