@@ -24,6 +24,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class PrikazSaleGUI extends JFrame {
 
@@ -114,6 +116,14 @@ public class PrikazSaleGUI extends JFrame {
 	private JTextField getTxtNazivSale() {
 		if (txtNazivSale == null) {
 			txtNazivSale = new JTextField();
+			txtNazivSale.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyPressed(KeyEvent e) {
+					if (e.getKeyCode()==KeyEvent.VK_ENTER) {
+						prikazi();
+					}
+				}
+			});
 			txtNazivSale.setBounds(52, 8, 86, 20);
 			txtNazivSale.setColumns(10);
 		}
@@ -125,87 +135,7 @@ public class PrikazSaleGUI extends JFrame {
 			btnPrikazi = new JButton("Prikazi");
 			btnPrikazi.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					String sala = txtNazivSale.getText().toUpperCase().trim();
-					boolean postoji = true;
-					try {
-						postoji = GUIKontroler.daLiPostojiSala(sala);
-					} catch (SQLException e1) {
-						JOptionPane.showMessageDialog(null,
-								"Doslo je do greske pri citanju iz baze.\nProbajte malo kasnije", "Greska",
-								JOptionPane.ERROR_MESSAGE);
-						return;
-					} catch (Exception e1) {
-						JOptionPane.showMessageDialog(null, "Doslo je do greske:\n." + e1.getMessage(), "Greska",
-								JOptionPane.ERROR_MESSAGE);
-						return;
-					}
-					if (sala == null || sala.isEmpty()) {
-						JOptionPane.showMessageDialog(null, "Morate uneti salu", "Greska", JOptionPane.WARNING_MESSAGE);
-						return;
-					} else if (!postoji) {
-						JOptionPane.showMessageDialog(null, "Sala koju ste uneli ne postoji", "Greska",
-								JOptionPane.WARNING_MESSAGE);
-						return;
-					}
-					if (table != null) {
-						table.setModel(new TableModelPrikazSaleGUI(sala));
-						table.repaint();
-						// return;
-					} else {
-						table = new JTable();
-						table.setRowHeight(50);
-						TableModelPrikazSaleGUI model = new TableModelPrikazSaleGUI(sala);
-						table.setModel(model);
-						DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-						centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-						table.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
-						scrollPane = new JScrollPane();
-						scrollPane.setViewportView(table);
-						contentPane.add(scrollPane, BorderLayout.CENTER);
-						contentPane.revalidate();
-						contentPane.repaint();
-						table.addMouseListener(new MouseListener() {
-
-							@Override
-							public void mouseReleased(MouseEvent e) {
-							}
-							@Override
-							public void mousePressed(MouseEvent e) {
-							}
-							@Override
-							public void mouseExited(MouseEvent e) {
-							}
-							@Override
-							public void mouseEntered(MouseEvent e) {
-							}
-
-							@Override
-							public void mouseClicked(MouseEvent e) {
-								int red = table.getSelectedRow();
-								int kolona = table.getSelectedColumn();
-								if (table.getModel().getValueAt(red, kolona) != "YES") {
-									lblHost.setVisible(false);
-									btnRezervisi.setVisible(false);
-									txtHost.setVisible(false);
-									lblDan.setVisible(false);
-									lblVreme.setVisible(false);
-									lblIzabranDan.setVisible(false);
-									lblIzabranoVreme.setVisible(false);
-									return;
-								}
-								txtHost.setText("");
-								btnRezervisi.setVisible(true);
-								lblHost.setVisible(true);
-								txtHost.setVisible(true);
-								lblDan.setVisible(true);
-								lblVreme.setVisible(true);
-								lblIzabranDan.setText(GUIKontroler.pretvoriDanUString(kolona));
-								lblIzabranoVreme.setText(GUIKontroler.pretvoriTerminUString(red));
-								lblIzabranDan.setVisible(true);
-								lblIzabranoVreme.setVisible(true);
-							}
-						});
-					}
+					prikazi();
 				}
 			});
 			btnPrikazi.setBounds(148, 7, 89, 23);
@@ -302,6 +232,90 @@ public class PrikazSaleGUI extends JFrame {
 		}
 		table.setModel(new TableModelPrikazSaleGUI(sala));
 		table.repaint();
+	}
+	
+	private void prikazi(){
+		String sala = txtNazivSale.getText().toUpperCase().trim();
+		boolean postoji = true;
+		try {
+			postoji = GUIKontroler.daLiPostojiSala(sala);
+		} catch (SQLException e1) {
+			JOptionPane.showMessageDialog(null,
+					"Doslo je do greske pri citanju iz baze.\nProbajte malo kasnije", "Greska",
+					JOptionPane.ERROR_MESSAGE);
+			return;
+		} catch (Exception e1) {
+			JOptionPane.showMessageDialog(null, "Doslo je do greske:\n." + e1.getMessage(), "Greska",
+					JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		if (sala == null || sala.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Morate uneti salu", "Greska", JOptionPane.WARNING_MESSAGE);
+			return;
+		} else if (!postoji) {
+			JOptionPane.showMessageDialog(null, "Sala koju ste uneli ne postoji", "Greska",
+					JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		if (table != null) {
+			table.setModel(new TableModelPrikazSaleGUI(sala));
+			table.repaint();
+			// return;
+		} else {
+			table = new JTable();
+			table.setRowHeight(50);
+			TableModelPrikazSaleGUI model = new TableModelPrikazSaleGUI(sala);
+			table.setModel(model);
+			DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+			centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+			table.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+			scrollPane = new JScrollPane();
+			scrollPane.setViewportView(table);
+			contentPane.add(scrollPane, BorderLayout.CENTER);
+			contentPane.revalidate();
+			contentPane.repaint();
+			table.addMouseListener(new MouseListener() {
+
+				@Override
+				public void mouseReleased(MouseEvent e) {
+				}
+				@Override
+				public void mousePressed(MouseEvent e) {
+				}
+				@Override
+				public void mouseExited(MouseEvent e) {
+				}
+				@Override
+				public void mouseEntered(MouseEvent e) {
+				}
+
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					int red = table.getSelectedRow();
+					int kolona = table.getSelectedColumn();
+					if (table.getModel().getValueAt(red, kolona) != "YES") {
+						lblHost.setVisible(false);
+						btnRezervisi.setVisible(false);
+						txtHost.setVisible(false);
+						lblDan.setVisible(false);
+						lblVreme.setVisible(false);
+						lblIzabranDan.setVisible(false);
+						lblIzabranoVreme.setVisible(false);
+						return;
+					}
+					txtHost.setText("");
+					btnRezervisi.setVisible(true);
+					lblHost.setVisible(true);
+					txtHost.setVisible(true);
+					lblDan.setVisible(true);
+					lblVreme.setVisible(true);
+					lblIzabranDan.setText(GUIKontroler.pretvoriDanUString(kolona));
+					lblIzabranoVreme.setText(GUIKontroler.pretvoriTerminUString(red));
+					lblIzabranDan.setVisible(true);
+					lblIzabranoVreme.setVisible(true);
+				}
+			});
+		}
 	}
 	
 }
