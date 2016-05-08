@@ -52,7 +52,6 @@ public class PrikazSaleGUI extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
-		//contentPane.add(getScrollPane(), BorderLayout.CENTER);
 		contentPane.add(getPanel(), BorderLayout.NORTH);
 		btnRezervisi.setVisible(false);
 		lblHost.setVisible(false);
@@ -60,6 +59,8 @@ public class PrikazSaleGUI extends JFrame {
 		lblDan.setVisible(false);
 		lblVreme.setVisible(false);
 		setTitle("Pregled sale");
+		txtHost.setText("");
+		txtNazivSale.setText("");
 	}
 
 	private JScrollPane getScrollPane(String sala) {
@@ -142,14 +143,15 @@ public class PrikazSaleGUI extends JFrame {
 						JOptionPane.showMessageDialog(null, "Morate uneti salu", "Greska", JOptionPane.WARNING_MESSAGE);
 						return;
 					} else if (!postoji) {
-						JOptionPane.showMessageDialog(null, "Sala koju ste uneli ne postoji", "Greska", JOptionPane.WARNING_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Sala koju ste uneli ne postoji", "Greska",
+								JOptionPane.WARNING_MESSAGE);
 						return;
 					}
 					if (table != null) {
 						table.setModel(new TableModelPrikazSaleGUI(sala));
 						table.repaint();
-						 //return;
-					}else{
+						// return;
+					} else {
 						table = new JTable();
 						table.setRowHeight(50);
 						TableModelPrikazSaleGUI model = new TableModelPrikazSaleGUI(sala);
@@ -163,36 +165,26 @@ public class PrikazSaleGUI extends JFrame {
 						contentPane.revalidate();
 						contentPane.repaint();
 						table.addMouseListener(new MouseListener() {
-							
+
 							@Override
 							public void mouseReleased(MouseEvent e) {
-								// TODO Auto-generated method stub
-								
 							}
-							
 							@Override
 							public void mousePressed(MouseEvent e) {
-								// TODO Auto-generated method stub
-								
 							}
-							
 							@Override
 							public void mouseExited(MouseEvent e) {
-								// TODO Auto-generated method stub
-								
 							}
-							
 							@Override
 							public void mouseEntered(MouseEvent e) {
-								// TODO Auto-generated method stub
-								
 							}
-							
+
 							@Override
 							public void mouseClicked(MouseEvent e) {
 								int red = table.getSelectedRow();
 								int kolona = table.getSelectedColumn();
-								if (table.getModel().getValueAt(red, kolona)!= "YES") {
+								if (table.getModel().getValueAt(red, kolona) != "YES") {
+									lblHost.setVisible(false);
 									btnRezervisi.setVisible(false);
 									txtHost.setVisible(false);
 									lblDan.setVisible(false);
@@ -201,18 +193,20 @@ public class PrikazSaleGUI extends JFrame {
 									lblIzabranoVreme.setVisible(false);
 									return;
 								}
+								txtHost.setText("");
 								btnRezervisi.setVisible(true);
 								lblHost.setVisible(true);
 								txtHost.setVisible(true);
 								lblDan.setVisible(true);
 								lblVreme.setVisible(true);
-								lblIzabranDan.setText(pretvoriDanUString(kolona));
-								lblIzabranoVreme.setText(pretvoriTerminUString(red));
+								lblIzabranDan.setText(GUIKontroler.pretvoriDanUString(kolona));
+								lblIzabranoVreme.setText(GUIKontroler.pretvoriTerminUString(red));
 								lblIzabranDan.setVisible(true);
 								lblIzabranoVreme.setVisible(true);
 							}
 						});
-					}}
+					}
+				}
 			});
 			btnPrikazi.setBounds(148, 7, 89, 23);
 		}
@@ -224,30 +218,14 @@ public class PrikazSaleGUI extends JFrame {
 			btnRezervisi = new JButton("Rezervisi");
 			btnRezervisi.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					int vreme = table.getSelectedRow();
-					int datum = table.getSelectedColumn();
-					String sala = txtNazivSale.getText().toUpperCase().trim();
-					String host = txtHost.getText().trim();
-					if (host == null || host.isEmpty()) {
-						JOptionPane.showMessageDialog(null, "Morate uneti hosta.", "Greska",
-								JOptionPane.WARNING_MESSAGE);
-					}
-					try {
-						GUIKontroler.rezervisi(host, sala, datum, vreme);
-					} catch (SQLException e1) {
-						JOptionPane.showMessageDialog(null,
-								"Doslo je do greske pri upisivanju u bazu.\nSala nije rezervisana", "Greska",
-								JOptionPane.ERROR_MESSAGE);
-					}
-					table.setModel(new TableModelPrikazSaleGUI(sala));
-					table.repaint();
-
+					rezervisi();
 				}
 			});
 			btnRezervisi.setBounds(683, 7, 89, 23);
 		}
 		return btnRezervisi;
 	}
+
 	private JLabel getLblHost() {
 		if (lblHost == null) {
 			lblHost = new JLabel("Host: ");
@@ -255,6 +233,7 @@ public class PrikazSaleGUI extends JFrame {
 		}
 		return lblHost;
 	}
+
 	private JTextField getTxtHost() {
 		if (txtHost == null) {
 			txtHost = new JTextField();
@@ -263,6 +242,7 @@ public class PrikazSaleGUI extends JFrame {
 		}
 		return txtHost;
 	}
+
 	private JLabel getLblDan() {
 		if (lblDan == null) {
 			lblDan = new JLabel("Dan: ");
@@ -270,6 +250,7 @@ public class PrikazSaleGUI extends JFrame {
 		}
 		return lblDan;
 	}
+
 	private JLabel getLblIzabranDan() {
 		if (lblIzabranDan == null) {
 			lblIzabranDan = new JLabel("");
@@ -277,6 +258,7 @@ public class PrikazSaleGUI extends JFrame {
 		}
 		return lblIzabranDan;
 	}
+
 	private JLabel getLblVreme() {
 		if (lblVreme == null) {
 			lblVreme = new JLabel("Vreme: ");
@@ -284,6 +266,7 @@ public class PrikazSaleGUI extends JFrame {
 		}
 		return lblVreme;
 	}
+
 	private JLabel getLblIzabranoVreme() {
 		if (lblIzabranoVreme == null) {
 			lblIzabranoVreme = new JLabel("");
@@ -291,56 +274,34 @@ public class PrikazSaleGUI extends JFrame {
 		}
 		return lblIzabranoVreme;
 	}
-	
-	/**
-	 * Metoda koja pretvara dan u odgovarajuce stringove
-	 * da bi prikaz bio razumljiviji.
-	 * @param dan
-	 * @return
-	 */
-	private String pretvoriDanUString(int dan) {
-		switch (dan) {
-		case 1:
-			return "Ponedeljak";
-		case 2:
-			return "Utorak";
-		case 3:
-			return "Sreda";
-		case 4:
-			return "Cetvrtak";
-		case 5:
-			return "Petak";
-		case 6:
-			return "Subota";
-		case 7:
-			return "Nedelja";
-		default:
-			return "" + dan;
+
+	private void rezervisi(){
+		int vreme = table.getSelectedRow();
+		int datum = table.getSelectedColumn();
+		String sala = txtNazivSale.getText().toUpperCase().trim();
+		String host = txtHost.getText().trim();
+		if (host == null || host.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Morate uneti hosta.", "Greska",
+					JOptionPane.WARNING_MESSAGE);
 		}
+		try {
+			String tip = GUIKontroler.vratiTipSale(sala);
+			String poruka = "Host: " + host + "\nSala: " + sala + "\nTip sale: " + tip + "\nDan: "
+					+ GUIKontroler.pretvoriDanUString(datum) + "\nVreme: " + GUIKontroler.pretvoriTerminUString(vreme);
+			int opcija = JOptionPane.showConfirmDialog(contentPane, poruka, "Potvrdite rezervaciju", JOptionPane.YES_NO_OPTION);
+			if (opcija == JOptionPane.YES_OPTION) {
+				GUIKontroler.rezervisi(host, sala, datum, vreme, tip);
+				JOptionPane.showMessageDialog(contentPane, poruka, "Uspesna rezervacija", JOptionPane.INFORMATION_MESSAGE);
+				dispose();
+			}
+			
+		} catch (SQLException e1) {
+			JOptionPane.showMessageDialog(null,
+					"Doslo je do greske pri upisivanju u bazu.\nSala nije rezervisana", "Greska",
+					JOptionPane.ERROR_MESSAGE);
+		}
+		table.setModel(new TableModelPrikazSaleGUI(sala));
+		table.repaint();
 	}
 	
-	/**
-	 * Metoda koja termine pretvara u odgovarajuce stringove
-	 * da bi prikaz bio razumljiviji.
-	 * @param termin
-	 * @return
-	 */
-	private String pretvoriTerminUString(int termin) {
-		switch (termin) {
-		case 0:
-			return "8:15-10:00";
-		case 1:
-			return "10:15 - 12:00";
-		case 2:
-			return "12:15 - 14:00";
-		case 3:
-			return "14:15 - 16:00";
-		case 4:
-			return "16:15 - 18:00";
-		case 5:
-			return "18:15 - 20:00";
-		default:
-			return "" + termin;
-		}
-	}
 }

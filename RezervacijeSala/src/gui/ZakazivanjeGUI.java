@@ -23,6 +23,8 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import java.awt.Dimension;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class ZakazivanjeGUI extends JDialog {
 
@@ -85,8 +87,8 @@ public class ZakazivanjeGUI extends JDialog {
 		this.vreme = vreme;
 		this.tipSale = tipSale;
 		napuniListu();
-		lblIzabranTermin.setText(pretvoriTerminUString(vreme));
-		lblIzabranDan.setText(pretvoriDanUString(datum));
+		lblIzabranTermin.setText(GUIKontroler.pretvoriTerminUString(vreme));
+		lblIzabranDan.setText(GUIKontroler.pretvoriDanUString(datum));
 		lblIzabranTipSale.setText(GUIKontroler.pretvoriTipSaleUString(tipSale));
 		setResizable(false);
 		
@@ -107,57 +109,6 @@ public class ZakazivanjeGUI extends JDialog {
 		
 	}
 	
-	/**
-	 * Metoda koja termine pretvara u odgovarajuce stringove
-	 * da bi prikaz bio razumljiviji.
-	 * @param termin
-	 * @return
-	 */
-	private String pretvoriTerminUString(int termin) {
-		switch (termin) {
-		case 0:
-			return "8:15-10:00";
-		case 1:
-			return "10:15 - 12:00";
-		case 2:
-			return "12:15 - 14:00";
-		case 3:
-			return "14:15 - 16:00";
-		case 4:
-			return "16:15 - 18:00";
-		case 5:
-			return "18:15 - 20:00";
-		default:
-			return "" + termin;
-		}
-	}
-
-	/**
-	 * Metoda koja pretvara dan u odgovarajuce stringove
-	 * da bi prikaz bio razumljiviji.
-	 * @param dan
-	 * @return
-	 */
-	private String pretvoriDanUString(int dan) {
-		switch (dan) {
-		case 1:
-			return "Ponedeljak";
-		case 2:
-			return "Utorak";
-		case 3:
-			return "Sreda";
-		case 4:
-			return "Cetvrtak";
-		case 5:
-			return "Petak";
-		case 6:
-			return "Subota";
-		case 7:
-			return "Nedelja";
-		default:
-			return "" + dan;
-		}
-	}
 	private JList getJlstSale() {
 		if (jlstSale == null) {
 			jlstSale = new JList();
@@ -207,6 +158,15 @@ public class ZakazivanjeGUI extends JDialog {
 	private JTextField getTxtHost() {
 		if (txtHost == null) {
 			txtHost = new JTextField();
+			txtHost.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyReleased(KeyEvent e) {
+					if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+						rezervisi();
+						dispose();
+					}					
+				}
+			});
 			txtHost.setBounds(57, 82, 73, 20);
 			txtHost.setColumns(10);
 		}
@@ -215,33 +175,10 @@ public class ZakazivanjeGUI extends JDialog {
 
 	private JButton getBtnRezervisi() {
 		if (btnRezervisi == null) {
-			btnRezervisi = new JButton("Rezervisi");
+			btnRezervisi = new JButton("Rezervisi");			
 			btnRezervisi.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-
-					if (jlstSale.getSelectedValue() == null) {
-						JOptionPane.showMessageDialog(null, "Morate izabrati salu", "Greska",
-								JOptionPane.WARNING_MESSAGE);
-						return;
-					}
-					String sala = jlstSale.getSelectedValue().toString().trim();
-
-					if (txtHost.getText().isEmpty()) {
-						JOptionPane.showMessageDialog(null, "Morate uneti hosta", "Greska",
-								JOptionPane.WARNING_MESSAGE);
-					}
-					String host = txtHost.getText();
-
-					try {
-						GUIKontroler.rezervisi(host, sala, datum, vreme, tipSale);
-					} catch (SQLException e1) {
-						JOptionPane.showMessageDialog(null,
-								"Doslo je do greske pri upisivanju u bazu.\nSala nije rezervisana", "Greska",
-								JOptionPane.ERROR_MESSAGE);
-						return;
-					}
-
-					dispose();
+					rezervisi();
 				}
 			});
 			btnRezervisi.setBounds(10, 125, 89, 23);
@@ -298,6 +235,35 @@ public class ZakazivanjeGUI extends JDialog {
 		}
 		return lblIzabranTipSale;
 	}
-	
-	
+
+	private void rezervisi(){
+		if (jlstSale.getSelectedValue() == null) {
+			JOptionPane.showMessageDialog(null, "Morate izabrati salu", "Greska",
+					JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		String sala = jlstSale.getSelectedValue().toString().trim();
+
+		if (txtHost.getText().isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Morate uneti hosta", "Greska",
+					JOptionPane.WARNING_MESSAGE);
+		}
+		String host = txtHost.getText();
+
+		try {
+			String poruka = "Host: " + host + "\nSala: " + sala + "\nTip sale: " + tipSale + "\nDan: "
+					+ GUIKontroler.pretvoriDanUString(datum) + "\nVreme: " + GUIKontroler.pretvoriTerminUString(vreme);
+			int opcija = JOptionPane.showConfirmDialog(contentPanel, poruka, "Potvrdite rezervaciju", JOptionPane.YES_NO_OPTION);
+			if (opcija == JOptionPane.YES_OPTION) {
+				GUIKontroler.rezervisi(host, sala, datum, vreme, tipSale);
+				JOptionPane.showMessageDialog(contentPanel, poruka, "Uspesna rezervacija", JOptionPane.INFORMATION_MESSAGE);
+				dispose();
+			}
+			
+		} catch (SQLException e1) {
+			JOptionPane.showMessageDialog(null,
+					"Doslo je do greske pri upisivanju u bazu.\nSala nije rezervisana", "Greska",
+					JOptionPane.ERROR_MESSAGE);
+		}
+	}
 }
