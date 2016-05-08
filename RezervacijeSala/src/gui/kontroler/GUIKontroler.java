@@ -39,7 +39,7 @@ public class GUIKontroler {
 	}
 
 	/*
-	 * Metode za prikaz formi
+	 * Metode za prikaz formi 
 	 */
 	public static void prikaziZakazivanjeGUI(int datum, int vreme, String tipSale) throws SQLException {
 		if (zakazivanje != null) {
